@@ -4,25 +4,27 @@ title: "UMD Fees"
 
 Follow along with the demo to learn how to calculate percentage change using R and the Tidyverse. You should get started by loading the tidyverse in a new R block.
 
-
 ### Task 1: Load the tidyverse
 
+```{r}
+library(tidyverse)
+```
 
+### Task 2: Load the UMD Fees dataset from <https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv>
 
-### Task 2: Load the UMD Fees dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv
-
-
+```{r}
+umdFees <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv")
+```
 
 ### Task 3: Calculate the percentage change in each category between Fall 2024 and Fall 2021 using `mutate()`
 
-
+```{r}
+umdFeesPct <- umdFees |> mutate(pctChange = (`Fall 2024`-`Fall 2021`)/`Fall 2021` * 100)
+```
 
 ### Task 4: Describe our results
-
 Write a few sentences about what you found in the data. What's the story here?
 
-
-
-
+General fee increases itself could be a story but I think it is interesting that since it's inception fees for the counseling center have more than doubled. It could be indicative of the mental health crisis on campus and maybe a lack of satisfaction with the counseling center.
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
