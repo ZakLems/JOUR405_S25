@@ -70,3 +70,16 @@ Ocean City had the highest reported violent crime rate in 2020 with around two i
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+### Task 10
+```{r}
+md_cities_percentiles <- md_cities_rates |> mutate(violentPercentile = ntile(violent_rate_2020, 100))
+```
+
+10 cities are above the 90th percentile.
+
+```{r}
+md_cities_rates |> summarize(IQR = IQR(violent_rate_2020))
+```
+
+It doesn't really change my story idea. It still shows that even excluding outliers, the violent crime rate increased.
