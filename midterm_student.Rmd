@@ -96,7 +96,7 @@ The counties with rates above the median are Wicomico, Cecil, Charles, Washingto
 Car thefts are concentrated in densely populated areas even when adjusting per capita. Also most counties had an increase in car thefts
 
 Lede:
-Car thefts double in Maryland's high population counties. 
+Car thefts have doubled in Maryland's high population counties. 
 
 ## Part 5: Data Analysis Scenario (20 points)
 
