@@ -69,6 +69,8 @@ Observed Frequency: The actual observed number of movies for each rating categor
 
 Based on just looking at the expected and observed data, is the latter set different than expected? How?
 
+The observed data and expected data are pretty similar. The biggest distance in expected and observed is with five star reviews by 15 reviews, which isn't that much for a sample size of 400. 
+
 
 ### Task 2: Chi-Square Test
 To perform the chi-square test, we will use the chisq.test() function from the vcd package:
@@ -124,6 +126,6 @@ By using the `qchisq(alpha, df, lower.tail = FALSE)` syntax in R, we are explici
 
 Compare the chi-square statistic to the critical value, say whether you would accept or reject the null hypothesis and what that means.
 
-ANSWER HERE
+The right tail critical value is less than the calculated chi-square statistic, meaning we reject the null hypothesis and the observed frequencies are significantly different from the expected frequencies or the ratings are not consistent with the expected percentages and we should dig a bit deeper to see why.
 
 It is important to note that the chi-square test only determines if there is a significant difference between the observed and expected frequencies, but it does not provide information about the specific reasons for this difference. Further analysis and investigation would be required to understand the underlying factors contributing to the observed movie rating distribution.
