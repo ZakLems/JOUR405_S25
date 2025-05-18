@@ -1,0 +1,3667 @@
+Conversation Title: Analyzing High School Admissions Data
+Agent: GPT 4o-mini - UMD3
+
+[05/18/2025 04:39:52 +00:00] Razak Diallo:
+I have a dataset with a list of high schools, school years, and admissions data per year for each high school. Here is a sample:
+
+id	school_id	school	year	applied	admitted	acceptance_rate	lat	lon	city	county	state	zip	classification
+1	210000	Aberdeen High School	2013-14	52	41	78.8	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+2	210000	Aberdeen High School	2014-15	44	33	75	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+3	210000	Aberdeen High School	2015-16	38	22	57.9	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+4	210000	Aberdeen High School	2016-17	40	25	62.5	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+5	210000	Aberdeen High School	2017-18	56	37	66.1	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+6	210000	Aberdeen High School	2018-19	51	35	68.6	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+7	210000	Aberdeen High School	2019-20	59	37	62.7	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+8	210000	Aberdeen High School	2020-21	52	38	73.1	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+9	210000	Aberdeen High School	2021-22	65	44	67.7	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+10	210000	Aberdeen High School	2022-23	67	34	50.7	39.516652	-76.170698	Aberdeen	Harford County	Maryland	21001	public
+
+Response:
+Hello! It's great to assist you with your dataset. It looks like you have a structured list of high school admissions data that includes various metrics such as the number of applicants, admissions, acceptance rates, and geographic details.
+
+### **Understanding Your Dataset**
+
+Here’s a breakdown of the columns in your dataset:
+
+- **id**: A unique identifier for each entry.
+- **school_id**: An identifier for the school.
+- **school**: The name of the school.
+- **year**: The academic year.
+- **applied**: The number of students who applied.
+- **admitted**: The number of students who were admitted.
+- **acceptance_rate**: The percentage of applicants who were admitted.
+- **lat**: Latitude of the school location.
+- **lon**: Longitude of the school location.
+- **city**: The city where the school is located.
+- **county**: The county where the school is located.
+- **state**: The state where the school is located.
+- **zip**: The postal code for the school.
+- **classification**: The type of school (e.g., public or private).
+
+### **Analyzing Your Data**
+
+If you would like to perform specific analyses or visualizations on this data, here are some common approaches:
+
+1. **Calculate Trends**: 
+   - You can analyze trends over the years, such as changes in the number of applicants, admissions, and acceptance rates.
+
+2. **Acceptance Rate Analysis**:
+   - Determine the average acceptance rate over the years for the school or compare it with other schools.
+
+3. **Geographical Analysis**:
+   - Use the latitude and longitude to map the schools and see if there are geographical patterns in admissions.
+
+4. **Yearly Comparison**:
+   - Compare the data year-over-year to see if there are any significant changes in admissions.
+
+### **Next Steps**
+
+If you have a specific analysis or question in mind regarding this dataset, please let me know! I can guide you through the necessary steps or provide more detailed insights based on your needs.
+
+[05/18/2025 05:01:00 +00:00] Razak Diallo:
+I want to use R studio to do an analysis of the data in response to the claim by the University of Maryland (where the admissions data is from) that since 2020 they have "broaden our student recruitment efforts across Maryland counties and cities." I thought of using an anova test to compare admissions rate for each county before and after the 2020 school year. I also wanted to use z-scores to test if any counties after 2020 have significant changes in admissiosns. Don't tell me how to do this but let me know if this makes sense or if I should reconsider how to do things. I don't know where to include information about changes in the composition of the each admissions class so let me know where I can put that as well. Also should I look at admissions rate or application rate to judge recruitment efforts.
+
+Response:
+Your approach to analyzing the admissions data in response to the University of Maryland's claim makes **logical sense** and is a good way to evaluate the effectiveness of their recruitment efforts. Here are some thoughts on your plan:
+
+### **1. ANOVA Test for Admissions Rates**
+- **Using ANOVA**: Comparing the admissions rates across different counties before and after 2020 is a solid method to see if there are statistically significant differences in admissions rates. This will help you understand if the recruitment efforts have had a measurable impact on admissions from various counties.
+
+### **2. Z-Scores for Significant Changes**
+- **Z-Scores**: Calculating z-scores to identify significant changes in admissions for each county after 2020 is a great approach. This will allow you to pinpoint specific counties that may have experienced notable shifts in their admissions numbers.
+
+### **3. Considering Admissions Rate vs. Application Rate**
+- **Admissions Rate vs. Application Rate**: 
+  - The **admissions rate** (admitted/applications) is often a better metric to evaluate recruitment efforts because it reflects the effectiveness of the admissions process itself and how many students were successfully admitted relative to those who applied.
+  - The **application rate** could be useful to evaluate the overall interest in the school, but it may not directly reflect the success of recruitment strategies if the admissions process remains unchanged.
+
+### **4. Changes in Composition of Admissions Classes**
+- **Incorporating Composition Changes**: 
+  - You can analyze the demographic or academic composition of each admissions class as part of your broader analysis. This could be included as a separate analysis where you look at changes in the characteristics of admitted students (e.g., GPA, test scores, demographics) over time.
+  - Consider creating a section in your analysis dedicated to discussing how the composition of admitted students may relate to changes in recruitment strategies and how it may impact the interpretation of your ANOVA results.
+
+### **Conclusion**
+Your plan is well-structured and addresses key aspects of the University of Maryland's claim. By focusing on admissions rates and incorporating demographic analysis, you will provide a comprehensive evaluation of the recruitment efforts. If you have any further questions or need additional insights as you progress with your analysis, feel free to ask!
+
+[05/18/2025 05:03:04 +00:00] Razak Diallo:
+By composition I'm referring to the makeup of the class based on county
+
+Response:
+Thank you for clarifying! Understanding the **composition of the admissions class based on county** is indeed crucial for your analysis. Here’s how you can think about incorporating this aspect into your study:
+
+### **1. Analyzing Class Composition by County**
+- **County Breakdown**: You can analyze the number of admitted students from each county for each year. This will help you see if there are shifts in which counties are contributing to the student body over time.
+- **Comparative Analysis**: By comparing the proportion of admitted students from each county before and after 2020, you can assess whether the recruitment efforts have successfully broadened the student base across different regions.
+
+### **2. Integration with ANOVA and Z-Score Analysis**
+- **ANOVA Test**: While conducting the ANOVA test on admissions rates, you can also include a breakdown of the admissions data by county in your results. This will allow you to see if certain counties have statistically significant increases or decreases in admissions rates.
+- **Z-Scores**: When calculating z-scores for significant changes in admissions, consider calculating these for each county's admissions data separately. This will provide a clear picture of which counties have experienced notable shifts in their contribution to the incoming classes.
+
+### **3. Visual Representation**
+- **Graphs and Charts**: Consider creating visual representations (like bar charts or pie charts) that show the distribution of admitted students by county over the years. This can help illustrate any changes in recruitment effectiveness visually.
+
+### **4. Discussion Section**
+- **Contextual Analysis**: In your discussion section, you can reflect on how the changes in county representation in the admissions classes relate to the university's recruitment strategies. Discuss whether the shifts align with the claim of broadening recruitment efforts and what implications this has for future strategies.
+
+### **Conclusion**
+By focusing on the **makeup of the admissions class based on county**, you will enhance your analysis and provide a more nuanced understanding of the university's recruitment efforts. This approach will help you draw more informed conclusions regarding the effectiveness of their strategies. If you have any more questions or need further guidance, feel free to ask!
+
+[05/18/2025 05:14:24 +00:00] Razak Diallo:
+What should I do when the acceptance rate in the data is <10. i.e.
+128
+210887
+Avalon School
+2020-21
+10
+<10
+<10
+39.04870
+-77.06700
+Mount Airy
+Carroll County
+Maryland
+21771
+public
+
+Response:
+When you encounter an **acceptance rate** in your data that is recorded as **"<10"**, it indicates that the acceptance rate is less than 10%. Here are some steps you can take to handle this situation effectively:
+
+### **1. Data Cleaning and Preprocessing**
+- **Convert to Numeric**: If your dataset uses "<10" as a string, you may want to convert it to a numeric value for analysis. You could represent it as a numerical value such as **9.99** or simply as **0** (if you prefer to exclude it from numerical analyses). This will allow you to perform calculations without errors.
+  
+### **2. Analyze Acceptance Rates**
+- **Categorize**: Consider categorizing acceptance rates into bins. For example:
+  - **Low Acceptance Rate**: <10%
+  - **Moderate Acceptance Rate**: 10% - 50%
+  - **High Acceptance Rate**: >50%
+  
+  This can help you to summarize and visualize the data more effectively.
+
+### **3. Handle in Statistical Analysis**
+- **ANOVA and Z-Scores**: When conducting ANOVA or calculating z-scores, you might need to exclude these entries or handle them separately since they could skew results. If you decide to use a numeric representation, be cautious about how this impacts your analysis.
+
+### **4. Interpretation and Reporting**
+- **Contextualize Results**: When reporting your findings, make sure to note how many schools fall into the "<10" category and discuss the implications. For example, you could mention that a significant number of schools have very low acceptance rates, which may indicate highly competitive admissions processes.
+  
+- **Examine Trends**: Analyze whether there is a trend in the number of schools with low acceptance rates over the years. This can provide insights into changes in admissions policies or recruitment efforts.
+
+### **5. Consider Additional Metrics**
+- **Supplementary Metrics**: Alongside acceptance rates, consider looking at other metrics such as the number of applicants, the number of admitted students, and overall trends in admissions. This can provide a fuller picture of the admissions landscape.
+
+### **Conclusion**
+Handling acceptance rates recorded as "<10" requires careful consideration in terms of data cleaning, analysis, and interpretation. By categorizing and contextualizing these data points, you can ensure that your analysis remains robust and meaningful. If you have any further questions or need assistance with specific analyses, feel free to ask!
+
+[05/18/2025 05:19:22 +00:00] Razak Diallo:
+What about NA
+
+Response:
+When dealing with **NA (Not Available)** values in your dataset, it's important to handle them appropriately to ensure the integrity of your analysis. Here are some strategies for managing NA values:
+
+### **1. Identify NA Values**
+- **Check for NA**: First, identify where the NA values are located in your dataset. This can help you understand the extent of the missing data and its potential impact on your analysis.
+
+### **2. Handling NA Values**
+You have several options for handling NA values, depending on the context of your analysis:
+
+#### **A. Remove NA Values**
+- **Complete Case Analysis**: If the NA values are not numerous, you might consider removing those entries from your dataset. This is known as complete case analysis and can be appropriate if the missing data is random and does not bias your results.
+
+#### **B. Imputation**
+- **Mean/Median Imputation**: For numerical values, you can replace NA values with the mean or median of the available data in that column. This approach can help maintain the dataset size but may introduce bias.
+- **Mode Imputation**: For categorical data, consider replacing NA values with the most frequent category (mode).
+
+#### **C. Use a Placeholder**
+- **Assign a Value**: You can assign a specific value to NA entries, such as **0** or a designated category like "Unknown." This is useful if you want to keep the rows in your dataset for analysis.
+
+#### **D. Analyze Separately**
+- **Separate Analysis**: In some cases, it may be beneficial to analyze the NA values separately to understand the context of the missing data. For example, you might want to see if there is a pattern in the counties or years with missing data.
+
+### **3. Document Your Approach**
+- **Transparency**: Be sure to document how you handled NA values in your analysis. This is important for reproducibility and for understanding the potential impact of your decisions on the results.
+
+### **4. Consider the Impact on Analysis**
+- **Assess Impact**: Reflect on how the handling of NA values might affect your statistical tests (e.g., ANOVA) and overall conclusions. If a significant portion of your data is missing, it may be necessary to reconsider the validity of the analysis.
+
+### **Conclusion**
+Managing NA values is crucial for maintaining the quality of your analysis. By carefully considering how to handle them, you can minimize bias and ensure that your results are meaningful. If you have further questions or need assistance with specific methods for handling NA values, feel free to ask!
+
+[05/18/2025 05:21:49 +00:00] Razak Diallo:
+Write code for r that removes any row with an NA value and copies the row to a seperate table
+
+Response:
+Certainly! Below is an example of R code that removes any row with an NA value from your dataset and copies those rows to a separate table. 
+
+### **R Code Example**
+
+```r
+# Assuming your dataset is called 'data'
+# Create a sample dataset for demonstration
+data <- data.frame(
+  id = c(1, 2, 3, 4, 5),
+  school_id = c(210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", NA),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18"),
+  applied = c(52, 44, NA, 40, 56),
+  admitted = c(41, 33, 22, NA, 37),
+  acceptance_rate = c(78.8, 75, 57.9, 62.5, 66.1)
+)
+
+# View the original dataset
+print("Original Data:")
+print(data)
+
+# Separate rows with NA values
+na_rows <- data[!complete.cases(data), ]
+
+# Remove rows with NA values from the original dataset
+cleaned_data <- data[complete.cases(data), ]
+
+# View the cleaned dataset
+print("Cleaned Data (without NA):")
+print(cleaned_data)
+
+# View the rows that were removed
+print("Rows with NA Values:")
+print(na_rows)
+```
+
+### **Explanation of the Code**
+1. **Sample Dataset**: The code creates a sample dataset named `data` with some NA values for demonstration.
+2. **Separate NA Rows**: The `na_rows` variable stores the rows that contain any NA values using the `!complete.cases(data)` function.
+3. **Cleaned Dataset**: The `cleaned_data` variable stores the dataset without the NA values using `complete.cases(data)`.
+4. **Print Statements**: The code includes print statements to display the original dataset, the cleaned dataset, and the rows that were removed.
+
+### **Usage**
+- You can replace the sample dataset with your actual dataset by assigning it to the `data` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 05:24:33 +00:00] Razak Diallo:
+Specifically NA values in the applied, admitted, and acceptance_rate columns
+
+
+Response:
+Sure! Below is the R code specifically designed to remove rows with NA values in the **`applied`**, **`admitted`**, and **`acceptance_rate`** columns, while copying those rows to a separate table.
+
+### **R Code Example**
+
+```r
+# Assuming your dataset is called 'data'
+# Create a sample dataset for demonstration
+data <- data.frame(
+  id = c(1, 2, 3, 4, 5),
+  school_id = c(210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18"),
+  applied = c(52, 44, NA, 40, 56),
+  admitted = c(41, 33, 22, NA, 37),
+  acceptance_rate = c(78.8, 75, 57.9, NA, 66.1)
+)
+
+# View the original dataset
+print("Original Data:")
+print(data)
+
+# Separate rows with NA values in specific columns
+na_rows <- data[is.na(data$applied) | is.na(data$admitted) | is.na(data$acceptance_rate), ]
+
+# Remove rows with NA values in the specific columns from the original dataset
+cleaned_data <- data[!is.na(data$applied) & !is.na(data$admitted) & !is.na(data$acceptance_rate), ]
+
+# View the cleaned dataset
+print("Cleaned Data (without NA in applied, admitted, acceptance_rate):")
+print(cleaned_data)
+
+# View the rows that were removed
+print("Rows with NA Values in applied, admitted, or acceptance_rate:")
+print(na_rows)
+```
+
+### **Explanation of the Code**
+1. **Sample Dataset**: The code creates a sample dataset named `data` that includes NA values specifically in the **`applied`**, **`admitted`**, and **`acceptance_rate`** columns.
+2. **Separate NA Rows**: The `na_rows` variable stores the rows that contain NA values in any of the specified columns using the condition `is.na(data$applied) | is.na(data$admitted) | is.na(data$acceptance_rate)`.
+3. **Cleaned Dataset**: The `cleaned_data` variable stores the dataset without the NA values in the specified columns using the condition `!is.na(data$applied) & !is.na(data$admitted) & !is.na(data$acceptance_rate)`.
+4. **Print Statements**: The code includes print statements to display the original dataset, the cleaned dataset, and the rows that were removed.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `data` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 05:29:37 +00:00] Razak Diallo:
+now can you write code that converts any cell with a "<" followed by a number to the value of that number - 0.01. For example "<10" would become "9.99" and "<17" would become "16.99"
+
+Response:
+Certainly! Below is the R code that converts any cell containing a string with a "<" followed by a number into a numeric value by subtracting **0.01** from that number. 
+
+### **R Code Example**
+
+```r
+# Assuming your dataset is called 'data'
+# Create a sample dataset for demonstration
+data <- data.frame(
+  id = c(1, 2, 3, 4, 5),
+  school_id = c(210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18"),
+  applied = c("52", "<10", "38", "<17", "56"),
+  admitted = c("41", "33", "<22", "25", "<30"),
+  acceptance_rate = c("78.8", "75", "<57.9", "<62.5", "66.1")
+)
+
+# View the original dataset
+print("Original Data:")
+print(data)
+
+# Function to convert "<number" to "number - 0.01"
+convert_less_than <- function(value) {
+  if (grepl("^<\\d+$", value)) {  # Check if the string starts with "<" followed by digits
+    number <- as.numeric(sub("^<", "", value))  # Remove "<" and convert to numeric
+    return(number - 0.01)  # Return the number - 0.01
+  } else {
+    return(as.numeric(value))  # If not, return the value as numeric
+  }
+}
+
+# Apply the function to the relevant columns
+data$applied <- sapply(data$applied, convert_less_than)
+data$admitted <- sapply(data$admitted, convert_less_than)
+data$acceptance_rate <- sapply(data$acceptance_rate, convert_less_than)
+
+# View the updated dataset
+print("Updated Data (converted '<' values):")
+print(data)
+```
+
+### **Explanation of the Code**
+1. **Sample Dataset**: The code creates a sample dataset named `data` where some values in the **`applied`**, **`admitted`**, and **`acceptance_rate`** columns contain strings with "<".
+2. **Conversion Function**: The `convert_less_than` function checks if a value matches the pattern of starting with "<" followed by digits. If it does, it removes the "<", converts the remaining string to a number, and subtracts **0.01**. If not, it converts the value directly to numeric.
+3. **Apply Function**: The `sapply` function applies the `convert_less_than` function to each of the specified columns.
+4. **Print Statements**: The code includes print statements to display the original dataset and the updated dataset after conversion.
+
+### **Usage**
+- You can replace the sample dataset with your actual dataset by assigning it to the `data` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 06:19:44 +00:00] Razak Diallo:
+From the N/A table I want to get the number of N/A rows per county using the tidyverse
+
+Response:
+Certainly! You can use the **tidyverse** package in R to count the number of NA rows per county from your NA table. Below is an example of how to do this using the **dplyr** package, which is part of the tidyverse.
+
+### **R Code Example**
+
+```r
+# Load the necessary library
+library(dplyr)
+
+# Assuming 'na_rows' is your NA table
+# Create a sample na_rows dataset for demonstration
+na_rows <- data.frame(
+  id = c(1, 2, 3, 4, 5),
+  school_id = c(210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Avalon School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2020-21"),
+  applied = c(NA, 44, NA, 40, 10),
+  admitted = c(41, 33, 22, NA, NA),
+  acceptance_rate = c(78.8, 75, 57.9, NA, "<10"),
+  city = c("Aberdeen", "Aberdeen", "Aberdeen", "Aberdeen", "Mount Airy"),
+  county = c("Harford County", "Harford County", "Harford County", "Harford County", "Carroll County")
+)
+
+# View the NA rows dataset
+print("NA Rows Data:")
+print(na_rows)
+
+# Count the number of NA rows per county
+na_count_per_county <- na_rows %>%
+  group_by(county) %>%
+  summarise(na_count = n(), .groups = 'drop')
+
+# View the count of NA rows per county
+print("Number of NA Rows per County:")
+print(na_count_per_county)
+```
+
+### **Explanation of the Code**
+1. **Load the Library**: The code loads the **dplyr** library from the tidyverse.
+2. **Sample NA Rows Dataset**: A sample `na_rows` dataset is created for demonstration purposes. Replace this with your actual NA rows dataset.
+3. **Counting NA Rows**: The code uses the `group_by()` function to group the data by **`county`** and then applies `summarise()` to count the number of rows in each group using `n()`.
+4. **Output**: The resulting `na_count_per_county` dataframe contains the count of NA rows per county, which is printed to the console.
+
+### **Usage**
+- Replace the sample `na_rows` dataset with your actual NA rows dataset.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 06:23:27 +00:00] Razak Diallo:
+I also want to get the county per year. Keep the grouping by county but add columns for each year while keeping the total number
+
+Response:
+You can achieve this by using the **tidyverse** package to count the number of NA rows per county and year while keeping the total count. You'll be using the `pivot_wider()` function from the **tidyr** package to spread the data into a wider format with separate columns for each year.
+
+Here’s how you can do it:
+
+### **R Code Example**
+
+```r
+# Load the necessary libraries
+library(dplyr)
+library(tidyr)
+
+# Assuming 'na_rows' is your NA table
+# Create a sample na_rows dataset for demonstration
+na_rows <- data.frame(
+  id = c(1, 2, 3, 4, 5, 6, 7),
+  school_id = c(210000, 210000, 210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Avalon School", "Avalon School", "Avalon School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2020-21", "2021-22", "2022-23"),
+  applied = c(NA, 44, NA, 40, 10, NA, NA),
+  admitted = c(41, 33, 22, NA, NA, NA, 34),
+  acceptance_rate = c(78.8, 75, 57.9, NA, "<10", "<17", "50"),
+  city = c("Aberdeen", "Aberdeen", "Aberdeen", "Aberdeen", "Mount Airy", "Mount Airy", "Mount Airy"),
+  county = c("Harford County", "Harford County", "Harford County", "Harford County", "Carroll County", "Carroll County", "Carroll County")
+)
+
+# View the NA rows dataset
+print("NA Rows Data:")
+print(na_rows)
+
+# Count the number of NA rows per county and year
+na_count_per_county_year <- na_rows %>%
+  filter(is.na(applied) | is.na(admitted) | is.na(acceptance_rate)) %>%
+  group_by(county, year) %>%
+  summarise(na_count = n(), .groups = 'drop') %>%
+  pivot_wider(names_from = year, values_from = na_count, values_fill = list(na_count = 0))
+
+# Calculate total NA count per county
+na_count_per_county_year <- na_count_per_county_year %>%
+  mutate(total_na = rowSums(select(., starts_with("201"))))  # Adjust the year prefix as needed
+
+# View the count of NA rows per county and year
+print("Number of NA Rows per County and Year:")
+print(na_count_per_county_year)
+```
+
+### **Explanation of the Code**
+1. **Load Libraries**: The code loads the necessary libraries: **dplyr** for data manipulation and **tidyr** for reshaping data.
+2. **Sample NA Rows Dataset**: A sample `na_rows` dataset is created for demonstration purposes. Replace this with your actual NA rows dataset.
+3. **Count NA Rows**: The code filters the dataset for rows with NA values, groups by **`county`** and **`year`**, and counts the number of NA rows in each group.
+4. **Pivot Wider**: The `pivot_wider()` function is used to create separate columns for each year, filling in missing values with **0**.
+5. **Total NA Count**: A new column, **`total_na`**, is added to calculate the total number of NA rows per county by summing across the year columns.
+6. **Output**: The resulting dataframe contains the count of NA rows per county and year, along with a total count.
+
+### **Usage**
+- Replace the sample `na_rows` dataset with your actual NA rows dataset.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 06:34:55 +00:00] Razak Diallo:
+Code to remove the end year from all the school years i.e. 2023-24 becomes 2023
+
+Response:
+You can easily remove the end year from the school years in your dataset using the **dplyr** package in R. Below is an example of how to achieve this by modifying the **`year`** column to retain only the starting year.
+
+### **R Code Example**
+
+```r
+# Load the necessary library
+library(dplyr)
+
+# Assuming your dataset is called 'data'
+# Create a sample dataset for demonstration
+data <- data.frame(
+  id = c(1, 2, 3, 4, 5),
+  school_id = c(210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Avalon School"),
+  year = c("2013-14", "2014-15", "2015-16", "2022-23", "2023-24"),
+  applied = c(52, 44, 38, 67, 56),
+  admitted = c(41, 33, 22, 34, 37),
+  acceptance_rate = c(78.8, 75, 57.9, 50.7, 66.1)
+)
+
+# View the original dataset
+print("Original Data:")
+print(data)
+
+# Remove the end year from the 'year' column
+data <- data %>%
+  mutate(year = sub("-\\d{2}$", "", year))  # Remove the end year
+
+# View the updated dataset
+print("Updated Data (year modified):")
+print(data)
+```
+
+### **Explanation of the Code**
+1. **Load Library**: The code loads the **dplyr** library for data manipulation.
+2. **Sample Dataset**: A sample dataset named `data` is created for demonstration purposes. Replace this with your actual dataset.
+3. **Modify Year Column**: The `mutate()` function is used to modify the **`year`** column. The `sub()` function is employed to remove the end year (the part after the hyphen) by matching the pattern `"-\\d{2}$` (which looks for a hyphen followed by two digits at the end of the string).
+4. **Output**: The updated dataset is printed to show the modified **`year`** column.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `data` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 06:38:09 +00:00] Razak Diallo:
+I have this so far but I also want columns for averages before/including and after 2020
+countyAppAdmissions <- hsAdmissions |> 
+  group_by(county) |> 
+  summarise(meanApplication = mean(applied), meanAdmissionsRate = mean(acceptance_rate))
+
+Response:
+You can modify your existing code to calculate the averages of applications and admissions rates both **before/including 2020** and **after 2020**. You can achieve this by creating separate summaries for each time period and then merging the results. Below is an updated version of your code that includes these calculations.
+
+### **R Code Example**
+
+```r
+library(dplyr)
+
+# Assuming hsAdmissions is your dataset
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  school_id = c(210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Avalon School", 
+             "Avalon School", "Avalon School", "Avalon School", "Avalon School", "Avalon School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"),
+  applied = c(52, 44, 38, 40, 56, 51, 59, 52, 65, 67),
+  admitted = c(41, 33, 22, 25, 37, 35, 37, 38, 44, 34),
+  acceptance_rate = c(78.8, 75, 57.9, 62.5, 66.1, 68.6, 62.7, 73.1, 67.7, 50.7),
+  county = c("Harford County", "Harford County", "Harford County", "Harford County", "Carroll County", 
+             "Carroll County", "Carroll County", "Carroll County", "Carroll County", "Carroll County")
+)
+
+# View the original dataset
+print("Original Data:")
+print(hsAdmissions)
+
+# Calculate averages before/including and after 2020
+countyAppAdmissions <- hsAdmissions |> 
+  mutate(year_numeric = as.numeric(sub("-\\d{2}$", "", year))) |>  # Convert year to numeric
+  group_by(county) |> 
+  summarise(
+    meanApplication_before = mean(applied[year_numeric <= 2020], na.rm = TRUE),
+    meanAdmissionsRate_before = mean(acceptance_rate[year_numeric <= 2020], na.rm = TRUE),
+    meanApplication_after = mean(applied[year_numeric > 2020], na.rm = TRUE),
+    meanAdmissionsRate_after = mean(acceptance_rate[year_numeric > 2020], na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# View the results
+print("County Application and Admissions Averages:")
+print(countyAppAdmissions)
+```
+
+### **Explanation of the Code**
+1. **Load Library**: The **dplyr** library is loaded for data manipulation.
+2. **Sample Dataset**: A sample dataset named `hsAdmissions` is created for demonstration. Replace this with your actual dataset.
+3. **Convert Year**: The `mutate()` function is used to create a new numeric column (`year_numeric`) by converting the **`year`** column to numeric values (removing the end year).
+4. **Group and Summarise**: The `group_by()` function groups the data by **`county`**, and the `summarise()` function calculates:
+   - **meanApplication_before**: Average applications for years **before and including 2020**.
+   - **meanAdmissionsRate_before**: Average acceptance rate for years **before and including 2020**.
+   - **meanApplication_after**: Average applications for years **after 2020**.
+   - **meanAdmissionsRate_after**: Average acceptance rate for years **after 2020**.
+5. **Output**: The resulting dataframe `countyAppAdmissions` contains the averages for each county and is printed to the console.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `hsAdmissions` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 19:21:26 +00:00] Razak Diallo:
+I want to summarise the percentage each county makes up of the admitted class every year. Basically the total admitted students in a county for a certain year divided by the total admitted that year. As a table I want it to look like this:
+County | 2013 | 2014 | ...
+Allegany |32|22|...
+
+Response:
+To summarize the percentage each county contributes to the admitted class for each year, you can follow these steps:
+
+1. **Group the data by year and county to get the total admitted students for each county per year.**
+2. **Calculate the total admitted students for each year.**
+3. **Calculate the percentage of admitted students from each county relative to the total admitted students for that year.**
+4. **Reshape the data to have years as columns.**
+
+Here’s how you can implement this in R using the **dplyr** and **tidyr** packages.
+
+### **R Code Example**
+
+```r
+library(dplyr)
+library(tidyr)
+
+# Assuming hsAdmissions is your dataset
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  school_id = c(210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Avalon School", 
+             "Avalon School", "Avalon School", "Avalon School", "Avalon School", "Avalon School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"),
+  applied = c(52, 44, 38, 40, 56, 51, 59, 52, 65, 67),
+  admitted = c(41, 33, 22, 25, 37, 35, 37, 38, 44, 34),
+  acceptance_rate = c(78.8, 75, 57.9, 62.5, 66.1, 68.6, 62.7, 73.1, 67.7, 50.7),
+  county = c("Harford County", "Harford County", "Harford County", "Harford County", "Carroll County", 
+             "Carroll County", "Carroll County", "Carroll County", "Carroll County", "Carroll County")
+)
+
+# View the original dataset
+print("Original Data:")
+print(hsAdmissions)
+
+# Calculate the percentage of admitted students per county for each year
+county_percentage <- hsAdmissions %>%
+  group_by(year, county) %>%
+  summarise(total_admitted_count = sum(admitted, na.rm = TRUE), .groups = 'drop') %>%
+  group_by(year) %>%
+  mutate(total_admitted_year = sum(total_admitted_count)) %>%
+  mutate(percentage = (total_admitted_count / total_admitted_year) * 100) %>%
+  select(year, county, percentage) %>%
+  ungroup()
+
+# Reshape the data to have years as columns
+county_percentage_wide <- county_percentage %>%
+  pivot_wider(names_from = year, values_from = percentage, values_fill = list(percentage = 0))
+
+# View the resulting table
+print("County Percentage of Admitted Class by Year:")
+print(county_percentage_wide)
+```
+
+### **Explanation of the Code**
+1. **Load Libraries**: The code loads the **dplyr** and **tidyr** libraries for data manipulation and reshaping.
+2. **Sample Dataset**: A sample dataset named `hsAdmissions` is created for demonstration. Replace this with your actual dataset.
+3. **Calculate Admitted Percentages**:
+   - The data is grouped by **`year`** and **`county`** to calculate the total admitted students for each county.
+   - The total admitted students for each year is calculated.
+   - The percentage of admitted students from each county relative to the total admitted for that year is computed.
+4. **Reshape the Data**: The `pivot_wider()` function is used to reshape the data so that each year becomes a separate column with the corresponding percentage.
+5. **Output**: The resulting dataframe `county_percentage_wide` contains the percentage of admitted students for each county by year and is printed to the console.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `hsAdmissions` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 19:54:15 +00:00] Razak Diallo:
+There is a school with NA as the county, how can I rename that to Maryland unknown
+
+Response:
+You can easily replace the **NA** values in the **`county`** column with "Maryland Unknown" using the **dplyr** package in R. Below is an example of how to do this:
+
+### **R Code Example**
+
+```r
+library(dplyr)
+
+# Assuming hsAdmissions is your dataset
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  school_id = c(210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000),
+  school = c("Aberdeen High School", "Aberdeen High School", "Aberdeen High School", "Aberdeen High School", 
+             "Avalon School", "Avalon School", "Avalon School", "Avalon School", "Avalon School", "Unknown School"),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"),
+  applied = c(52, 44, 38, 40, 56, 51, 59, 52, 65, 67),
+  admitted = c(41, 33, 22, 25, 37, 35, 37, 38, 44, 34),
+  acceptance_rate = c(78.8, 75, 57.9, 62.5, 66.1, 68.6, 62.7, 73.1, 67.7, 50.7),
+  county = c("Harford County", "Harford County", NA, "Harford County", "Carroll County", 
+             "Carroll County", "Carroll County", "Carroll County", "Carroll County", "Carroll County")
+)
+
+# View the original dataset
+print("Original Data:")
+print(hsAdmissions)
+
+# Replace NA in the county column with "Maryland Unknown"
+hsAdmissions <- hsAdmissions %>%
+  mutate(county = ifelse(is.na(county), "Maryland Unknown", county))
+
+# View the updated dataset
+print("Updated Data (NA in county replaced):")
+print(hsAdmissions)
+```
+
+### **Explanation of the Code**
+1. **Load Library**: The **dplyr** library is loaded for data manipulation.
+2. **Sample Dataset**: A sample dataset named `hsAdmissions` is created for demonstration, which includes an NA value in the **`county`** column. Replace this with your actual dataset.
+3. **Replace NA Values**: The `mutate()` function is used along with `ifelse()` to check if the **`county`** column is NA. If it is, it replaces it with "Maryland Unknown"; otherwise, it keeps the original value.
+4. **Output**: The updated dataset is printed to show the changes.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `hsAdmissions` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 21:33:33 +00:00] Razak Diallo:
+Here's what I got so far. What tests should I do to answer the question whether or not the University efforts to broaden recruitment have been successful.
+
+---
+title: "final_project"
+output: html_document
+---
+
+#Load the tidyverse
+```{r}
+library(tidyverse)
+```
+
+#load admissions data
+```{r}
+hsAdmissions <- read_csv("admissions.csv")
+```
+#cleaning data (N/A values and <[number])
+```{r}
+#simplify year
+hsAdmissions <- hsAdmissions |> mutate(year = sub("-\\d{2}$", "", year))
+
+#seperate rows with NA values and remove them from the original database
+naRows <- hsAdmissions[is.na(hsAdmissions$applied) | is.na(hsAdmissions$admitted) | is.na(hsAdmissions$acceptance_rate), ]
+hsAdmissions <- hsAdmissions[!is.na(hsAdmissions$applied) | !is.na(hsAdmissions$admitted) | !is.na(hsAdmissions$acceptance_rate), ]
+
+#rename "Maryland Unknown" entries
+hsAdmissions <- hsAdmissions |> mutate(county = ifelse(is.na(county), "Maryland Unknown", county))
+
+# Function to convert "<number" to "number - 0.01"
+convert_less_than <- function(value) {
+  if (grepl("^<\\d+$", value)) {  # Check if the string starts with "<" followed by digits
+    number <- as.numeric(sub("^<", "", value))  # Remove "<" and convert to numeric
+    return(number - 0.01)  # Return the number - 0.01
+  } else {
+    return(as.numeric(value))  # If not, return the value as numeric
+  }
+}
+
+# Remove "<[number]" values from dataset by converting them to the
+hsAdmissions$applied <- sapply(hsAdmissions$applied, convert_less_than)
+hsAdmissions$admitted <- sapply(hsAdmissions$admitted, convert_less_than)
+hsAdmissions$acceptance_rate <- sapply(hsAdmissions$acceptance_rate, convert_less_than)
+```
+#If I had kept the N/A values I wouldn't have been able to operate on the data set. I thought about turning them to 0s but there could be numerous reasons as to why the data is unavailable such as it simply not being tracked. I also changed the <[number] values to the highest they could possibly be without crossing the threshold. This gives the most charitable data to the university's argument that since 2020 it has "broaden our student recruitment efforts across Maryland counties and cities." My conclusion will consider this decision.
+
+#Determining the number of N/A years per county
+```{r}
+naByCounty <- naRows %>%
+  group_by(county) %>%
+  summarise(na_count = n())
+
+```
+#It's interesting how the NA values are overwhelmingly in Prince George's County. If the N/A were to represent schools where 0 applicants applied to the University of Maryland, it shows a strong lack of interest in the institution.
+
+#Admissions rate of each county per year. Percentage of total applications and total admitted by county per year
+```{r}
+# Calculate the percentage of admitted students per county for each year
+countyAdmissionsRate <- hsAdmissions %>%
+  group_by(year, county) %>%
+  summarise(
+    applied = ceiling(sum(applied, na.rm = TRUE)),
+    admitted = ceiling(sum(admitted, na.rm = TRUE)),
+    admissionsRate = (admitted/applied)*100,
+    .groups = 'drop'
+    ) |> 
+  group_by(year) |> 
+  mutate(totalAppliedYear = sum(applied), totalAdmittedYear = sum(admitted)) %>%
+  mutate(perctApplied = (applied / totalAppliedYear)*100, perctAdmitted = (admitted / totalAdmittedYear) * 100)
+```
+
+#There are a few interesting things here. On the admissions rate front you would expect I applicant counties to fall closer to the mean at just under 60% but a high volume of years for Anne Arundel County and Prince George's County (both which saw application rates in the thousands) are as low as 39%.
+```{r}
+#summary statistics
+arSummary <- countyAdmissionsRate |> 
+  group_by(county) |>
+  summarize(
+    meanAdmissions = mean(admissionsRate),
+    medianAdmissions = median(admissionsRate),
+    sdAdmissions = sd(admissionsRate),
+    minAdmissions = min(admissionsRate),
+    maxAdmissions = max(admissionsRate)
+  )
+
+print(arSummary)
+
+countyAdmissionsRate |> 
+  ggplot() + 
+  geom_histogram(aes(x = admissionsRate), binwidth = 6) +
+  geom_vline(aes(xintercept = mean(admissionsRate)), color = "red", linetype = "dashed", size = 1) + 
+  geom_vline(aes(xintercept = mean(admissionsRate) - sd(admissionsRate)), color="blue", linetype = "dashed", size =1) +
+  geom_vline(aes(xintercept = mean(admissionsRate) + sd(admissionsRate)), color="blue", linetype = "dashed", size =1)
+```
+
+#The shifts in the proportion of applicants to admitted also raises a few questions. The majority of county/years see increases or negligible changes in their share after admission, except for Anne Arundel County and Prince George's County who average large decreases in their share of the pool. Montgomery County exist on the opposite, with an average increase close to 2 percentage points after admission.
+```{r}
+changesInPercentage <- countyAdmissionsRate |> 
+  group_by(county) |> 
+  summarize(
+    change = mean(perctAdmitted - perctApplied)
+  )
+```
+
+Here are some tables:
+Changes in Percentage:
+county
+change
+24
+Worcester County
+0.021359793
+23
+Wicomico County
+-0.102699537
+22
+Washington County
+0.101503440
+21
+Talbot County
+0.002532121
+20
+St. Mary's County
+-0.084502821
+19
+Queen Anne's County
+-0.027681614
+18
+Prince George's County
+-1.510398992
+17
+Montgomery County
+1.901458552
+16
+Maryland Unknown
+-0.399722061
+15
+Kent County
+0.025957254
+14
+Howard County
+0.144541189
+13
+Harford County
+-0.044921002
+12
+Garrett County
+0.027733042
+11
+Frederick County
+0.297378378
+10
+Dorchester County
+0.032857135
+9
+Charles County
+-0.163897063
+8
+Cecil County
+0.106790549
+7
+Carroll County
+-0.013713991
+6
+Caroline County
+0.006943773
+5
+Calvert County
+-0.059603305
+4
+Baltimore County
+0.388452107
+3
+Baltimore City
+0.249815237
+2
+Anne Arundel County
+-0.893362671
+1
+Allegany County
+0.037681317
+
+County Admissions Rate:
+year
+county
+applied
+admitted
+admissionsRate
+totalAppliedYear
+totalAdmittedYear
+perctApplied
+perctAdmitted
+1
+2013
+Allegany County
+27
+20
+74.07407
+12675
+7273
+0.21301775
+0.27498969
+2
+2013
+Anne Arundel County
+1067
+568
+53.23336
+12675
+7273
+8.41814596
+7.80970714
+3
+2013
+Baltimore City
+451
+260
+57.64967
+12675
+7273
+3.55818540
+3.57486594
+4
+2013
+Baltimore County
+1488
+899
+60.41667
+12675
+7273
+11.73964497
+12.36078647
+5
+2013
+Calvert County
+214
+127
+59.34579
+12675
+7273
+1.68836292
+1.74618452
+6
+2013
+Caroline County
+21
+11
+52.38095
+12675
+7273
+0.16568047
+0.15124433
+7
+2013
+Carroll County
+278
+155
+55.75540
+12675
+7273
+2.19329389
+2.13117008
+8
+2013
+Cecil County
+110
+63
+57.27273
+12675
+7273
+0.86785010
+0.86621752
+9
+2013
+Charles County
+225
+114
+50.66667
+12675
+7273
+1.77514793
+1.56744122
+10
+2013
+Frederick County
+539
+324
+60.11132
+12675
+7273
+4.25246548
+4.45483294
+11
+2013
+Harford County
+367
+216
+58.85559
+12675
+7273
+2.89546351
+2.96988863
+12
+2013
+Howard County
+1604
+953
+59.41397
+12675
+7273
+12.65483235
+13.10325863
+13
+2013
+Kent County
+15
+10
+66.66667
+12675
+7273
+0.11834320
+0.13749484
+14
+2013
+Maryland Unknown
+366
+165
+45.08197
+12675
+7273
+2.88757396
+2.26866493
+15
+2013
+Montgomery County
+4257
+2511
+58.98520
+12675
+7273
+33.58579882
+34.52495531
+16
+2013
+Prince George's County
+1138
+589
+51.75747
+12675
+7273
+8.97830375
+8.09844631
+17
+2013
+Queen Anne's County
+40
+24
+60.00000
+12675
+7273
+0.31558185
+0.32998763
+18
+2013
+St. Mary's County
+145
+81
+55.86207
+12675
+7273
+1.14398422
+1.11370824
+19
+2013
+Talbot County
+32
+13
+40.62500
+12675
+7273
+0.25246548
+0.17874330
+20
+2013
+Washington County
+92
+58
+63.04348
+12675
+7273
+0.72583826
+0.79747009
+21
+2013
+Wicomico County
+150
+80
+53.33333
+12675
+7273
+1.18343195
+1.09995875
+22
+2013
+Worcester County
+49
+32
+65.30612
+12675
+7273
+0.38658777
+0.43998350
+23
+2014
+Allegany County
+19
+12
+63.15789
+12703
+7281
+0.14957097
+0.16481253
+24
+2014
+Anne Arundel County
+1017
+548
+53.88397
+12703
+7281
+8.00598284
+7.52643868
+25
+2014
+Baltimore City
+483
+320
+66.25259
+12703
+7281
+3.80225144
+4.39500069
+26
+2014
+Baltimore County
+1479
+899
+60.78431
+12703
+7281
+11.64291900
+12.34720505
+27
+2014
+Calvert County
+178
+100
+56.17978
+12703
+7281
+1.40124380
+1.37343771
+28
+2014
+Caroline County
+14
+10
+71.42857
+12703
+7281
+0.11021019
+0.13734377
+29
+2014
+Carroll County
+271
+152
+56.08856
+12703
+7281
+2.13335433
+2.08762533
+30
+2014
+Cecil County
+89
+62
+69.66292
+12703
+7281
+0.70062190
+0.85153138
+31
+2014
+Charles County
+207
+103
+49.75845
+12703
+7281
+1.62953633
+1.41464085
+32
+2014
+Frederick County
+536
+302
+56.34328
+12703
+7281
+4.21947571
+4.14778190
+33
+2014
+Garrett County
+13
+10
+76.92308
+12703
+7281
+0.10233803
+0.13734377
+34
+2014
+Harford County
+357
+188
+52.66106
+12703
+7281
+2.81035976
+2.58206290
+35
+2014
+Howard County
+1572
+951
+60.49618
+12703
+7281
+12.37502952
+13.06139267
+36
+2014
+Kent County
+10
+10
+100.00000
+12703
+7281
+0.07872156
+0.13734377
+37
+2014
+Maryland Unknown
+402
+182
+45.27363
+12703
+7281
+3.16460679
+2.49965664
+38
+2014
+Montgomery County
+4396
+2605
+59.25842
+12703
+7281
+34.60599858
+35.77805247
+39
+2014
+Prince George's County
+1145
+543
+47.42358
+12703
+7281
+9.01361883
+7.45776679
+40
+2014
+Queen Anne's County
+53
+27
+50.94340
+12703
+7281
+0.41722428
+0.37082818
+41
+2014
+St. Mary's County
+124
+64
+51.61290
+12703
+7281
+0.97614737
+0.87900014
+42
+2014
+Talbot County
+22
+11
+50.00000
+12703
+7281
+0.17318744
+0.15107815
+43
+2014
+Washington County
+108
+74
+68.51852
+12703
+7281
+0.85019287
+1.01634391
+44
+2014
+Wicomico County
+161
+81
+50.31056
+12703
+7281
+1.26741715
+1.11248455
+45
+2014
+Worcester County
+47
+27
+57.44681
+12703
+7281
+0.36999134
+0.37082818
+46
+2015
+Allegany County
+11
+10
+90.90909
+11823
+5716
+0.09303899
+0.17494752
+47
+2015
+Anne Arundel County
+925
+374
+40.43243
+11823
+5716
+7.82373340
+6.54303709
+48
+2015
+Baltimore City
+454
+237
+52.20264
+11823
+5716
+3.83997293
+4.14625612
+49
+2015
+Baltimore County
+1390
+718
+51.65468
+11823
+5716
+11.75674533
+12.56123163
+50
+2015
+Calvert County
+180
+82
+45.55556
+11823
+5716
+1.52245623
+1.43456963
+51
+2015
+Carroll County
+279
+135
+48.38710
+11823
+5716
+2.35980716
+2.36179146
+52
+2015
+Cecil County
+95
+51
+53.68421
+11823
+5716
+0.80351857
+0.89223233
+53
+2015
+Charles County
+201
+89
+44.27861
+11823
+5716
+1.70007612
+1.55703289
+54
+2015
+Frederick County
+484
+243
+50.20661
+11823
+5716
+4.09371564
+4.25122463
+55
+2015
+Harford County
+348
+162
+46.55172
+11823
+5716
+2.94341538
+2.83414976
+56
+2015
+Howard County
+1536
+781
+50.84635
+11823
+5716
+12.99162649
+13.66340098
+57
+2015
+Kent County
+10
+10
+100.00000
+11823
+5716
+0.08458090
+0.17494752
+58
+2015
+Maryland Unknown
+325
+112
+34.46154
+11823
+5716
+2.74887930
+1.95941218
+59
+2015
+Montgomery County
+3965
+2025
+51.07188
+11823
+5716
+33.53632750
+35.42687194
+60
+2015
+Prince George's County
+1111
+451
+40.59406
+11823
+5716
+9.39693817
+7.89013296
+61
+2015
+Queen Anne's County
+62
+21
+33.87097
+11823
+5716
+0.52440159
+0.36738978
+62
+2015
+St. Mary's County
+149
+64
+42.95302
+11823
+5716
+1.26025543
+1.11966410
+63
+2015
+Talbot County
+28
+20
+71.42857
+11823
+5716
+0.23682652
+0.34989503
+64
+2015
+Washington County
+75
+46
+61.33333
+11823
+5716
+0.63435676
+0.80475857
+65
+2015
+Wicomico County
+146
+56
+38.35616
+11823
+5716
+1.23488116
+0.97970609
+66
+2015
+Worcester County
+49
+29
+59.18367
+11823
+5716
+0.41444642
+0.50734780
+67
+2016
+Allegany County
+32
+20
+62.50000
+14118
+7621
+0.22666100
+0.26243275
+68
+2016
+Anne Arundel County
+1113
+543
+48.78706
+14118
+7621
+7.88355291
+7.12504921
+69
+2016
+Baltimore City
+527
+267
+50.66414
+14118
+7621
+3.73282335
+3.50347723
+70
+2016
+Baltimore County
+1691
+958
+56.65287
+14118
+7621
+11.97761723
+12.57052880
+71
+2016
+Calvert County
+217
+108
+49.76959
+14118
+7621
+1.53704491
+1.41713686
+72
+2016
+Caroline County
+34
+21
+61.76471
+14118
+7621
+0.24082731
+0.27555439
+73
+2016
+Carroll County
+375
+196
+52.26667
+14118
+7621
+2.65618360
+2.57184097
+74
+2016
+Cecil County
+103
+66
+64.07767
+14118
+7621
+0.72956509
+0.86602808
+75
+2016
+Charles County
+224
+111
+49.55357
+14118
+7621
+1.58662700
+1.45650177
+76
+2016
+Dorchester County
+29
+20
+68.96552
+14118
+7621
+0.20541153
+0.26243275
+77
+2016
+Frederick County
+602
+336
+55.81395
+14118
+7621
+4.26406007
+4.40887023
+78
+2016
+Harford County
+406
+207
+50.98522
+14118
+7621
+2.87576144
+2.71617898
+79
+2016
+Howard County
+1744
+975
+55.90596
+14118
+7621
+12.35302451
+12.79359664
+80
+2016
+Kent County
+20
+10
+50.00000
+14118
+7621
+0.14166313
+0.13121638
+81
+2016
+Maryland Unknown
+400
+154
+38.50000
+14118
+7621
+2.83326250
+2.02073219
+82
+2016
+Montgomery County
+4715
+2760
+58.53659
+14118
+7621
+33.39708174
+36.21571972
+83
+2016
+Prince George's County
+1360
+610
+44.85294
+14118
+7621
+9.63309251
+8.00419892
+84
+2016
+Queen Anne's County
+69
+27
+39.13043
+14118
+7621
+0.48873778
+0.35428421
+85
+2016
+St. Mary's County
+141
+79
+56.02837
+14118
+7621
+0.99872503
+1.03660937
+86
+2016
+Talbot County
+34
+15
+44.11765
+14118
+7621
+0.24082731
+0.19682456
+87
+2016
+Washington County
+83
+44
+53.01205
+14118
+7621
+0.58790197
+0.57735205
+88
+2016
+Wicomico County
+146
+64
+43.83562
+14118
+7621
+1.03414081
+0.83978481
+89
+2016
+Worcester County
+53
+30
+56.60377
+14118
+7621
+0.37540728
+0.39364913
+90
+2017
+Allegany County
+13
+10
+76.92308
+14900
+7483
+0.08724832
+0.13363624
+91
+2017
+Anne Arundel County
+1137
+512
+45.03078
+14900
+7483
+7.63087248
+6.84217560
+92
+2017
+Baltimore City
+638
+347
+54.38871
+14900
+7483
+4.28187919
+4.63717760
+93
+2017
+Baltimore County
+1914
+1005
+52.50784
+14900
+7483
+12.84563758
+13.43044234
+94
+2017
+Calvert County
+185
+99
+53.51351
+14900
+7483
+1.24161074
+1.32299880
+95
+2017
+Caroline County
+18
+10
+55.55556
+14900
+7483
+0.12080537
+0.13363624
+96
+2017
+Carroll County
+312
+155
+49.67949
+14900
+7483
+2.09395973
+2.07136175
+97
+2017
+Cecil County
+100
+68
+68.00000
+14900
+7483
+0.67114094
+0.90872645
+98
+2017
+Charles County
+192
+86
+44.79167
+14900
+7483
+1.28859060
+1.14927168
+99
+2017
+Dorchester County
+13
+10
+76.92308
+14900
+7483
+0.08724832
+0.13363624
+100
+2017
+Frederick County
+625
+340
+54.40000
+14900
+7483
+4.19463087
+4.54363223
+101
+2017
+Harford County
+428
+202
+47.19626
+14900
+7483
+2.87248322
+2.69945209
+102
+2017
+Howard County
+1797
+902
+50.19477
+14900
+7483
+12.06040268
+12.05398904
+103
+2017
+Maryland Unknown
+485
+168
+34.63918
+14900
+7483
+3.25503356
+2.24508887
+104
+2017
+Montgomery County
+4995
+2654
+53.13313
+14900
+7483
+33.52348993
+35.46705867
+105
+2017
+Prince George's County
+1385
+561
+40.50542
+14900
+7483
+9.29530201
+7.49699318
+106
+2017
+Queen Anne's County
+52
+30
+57.69231
+14900
+7483
+0.34899329
+0.40090873
+107
+2017
+St. Mary's County
+153
+71
+46.40523
+14900
+7483
+1.02684564
+0.94881732
+108
+2017
+Talbot County
+47
+29
+61.70213
+14900
+7483
+0.31543624
+0.38754510
+109
+2017
+Washington County
+139
+82
+58.99281
+14900
+7483
+0.93288591
+1.09581719
+110
+2017
+Wicomico County
+197
+104
+52.79188
+14900
+7483
+1.32214765
+1.38981692
+111
+2017
+Worcester County
+75
+38
+50.66667
+14900
+7483
+0.50335570
+0.50781772
+112
+2018
+Allegany County
+25
+15
+60.00000
+15210
+8010
+0.16436555
+0.18726592
+113
+2018
+Anne Arundel County
+1192
+541
+45.38591
+15210
+8010
+7.83694938
+6.75405743
+114
+2018
+Baltimore City
+624
+333
+53.36538
+15210
+8010
+4.10256410
+4.15730337
+115
+2018
+Baltimore County
+1901
+1039
+54.65544
+15210
+8010
+12.49835634
+12.97128589
+116
+2018
+Calvert County
+183
+97
+53.00546
+15210
+8010
+1.20315582
+1.21098627
+117
+2018
+Caroline County
+43
+21
+48.83721
+15210
+8010
+0.28270874
+0.26217228
+118
+2018
+Carroll County
+371
+211
+56.87332
+15210
+8010
+2.43918475
+2.63420724
+119
+2018
+Cecil County
+128
+71
+55.46875
+15210
+8010
+0.84155161
+0.88639201
+120
+2018
+Charles County
+236
+106
+44.91525
+15210
+8010
+1.55161078
+1.32334582
+121
+2018
+Dorchester County
+15
+11
+73.33333
+15210
+8010
+0.09861933
+0.13732834
+122
+2018
+Frederick County
+710
+442
+62.25352
+15210
+8010
+4.66798159
+5.51810237
+123
+2018
+Harford County
+487
+266
+54.62012
+15210
+8010
+3.20184089
+3.32084894
+124
+2018
+Howard County
+1893
+960
+50.71315
+15210
+8010
+12.44575937
+11.98501873
+125
+2018
+Kent County
+14
+10
+71.42857
+15210
+8010
+0.09204471
+0.12484395
+126
+2018
+Maryland Unknown
+10
+10
+100.00000
+15210
+8010
+0.06574622
+0.12484395
+127
+2018
+Montgomery County
+5400
+2994
+55.44444
+15210
+8010
+35.50295858
+37.37827715
+128
+2018
+Prince George's County
+1301
+511
+39.27748
+15210
+8010
+8.55358317
+6.37952559
+129
+2018
+Queen Anne's County
+89
+50
+56.17978
+15210
+8010
+0.58514135
+0.62421973
+130
+2018
+St. Mary's County
+158
+87
+55.06329
+15210
+8010
+1.03879027
+1.08614232
+131
+2018
+Talbot County
+45
+22
+48.88889
+15210
+8010
+0.29585799
+0.27465668
+132
+2018
+Washington County
+151
+93
+61.58940
+15210
+8010
+0.99276792
+1.16104869
+133
+2018
+Wicomico County
+173
+88
+50.86705
+15210
+8010
+1.13740960
+1.09862672
+134
+2018
+Worcester County
+61
+32
+52.45902
+15210
+8010
+0.40105194
+0.39950062
+135
+2019
+Allegany County
+15
+10
+66.66667
+14665
+7978
+0.10228435
+0.12534470
+136
+2019
+Anne Arundel County
+1202
+587
+48.83527
+14665
+7978
+8.19638595
+7.35773377
+137
+2019
+Baltimore City
+565
+358
+63.36283
+14665
+7978
+3.85271054
+4.48734019
+138
+2019
+Baltimore County
+1768
+1001
+56.61765
+14665
+7978
+12.05591544
+12.54700426
+139
+2019
+Calvert County
+195
+96
+49.23077
+14665
+7978
+1.32969656
+1.20330910
+140
+2019
+Caroline County
+28
+20
+71.42857
+14665
+7978
+0.19093079
+0.25068940
+141
+2019
+Carroll County
+315
+172
+54.60317
+14665
+7978
+2.14797136
+2.15592880
+142
+2019
+Cecil County
+98
+61
+62.24490
+14665
+7978
+0.66825776
+0.76460266
+143
+2019
+Charles County
+193
+101
+52.33161
+14665
+7978
+1.31605864
+1.26598145
+144
+2019
+Frederick County
+670
+395
+58.95522
+14665
+7978
+4.56870099
+4.95111557
+145
+2019
+Harford County
+385
+219
+56.88312
+14665
+7978
+2.62529833
+2.74504888
+146
+2019
+Howard County
+1915
+1048
+54.72585
+14665
+7978
+13.05830208
+13.13612434
+147
+2019
+Maryland Unknown
+87
+34
+39.08046
+14665
+7978
+0.59324923
+0.42617197
+148
+2019
+Montgomery County
+5299
+2952
+55.70862
+14665
+7978
+36.13365155
+37.00175483
+149
+2019
+Prince George's County
+1254
+543
+43.30144
+14665
+7978
+8.55097170
+6.80621710
+150
+2019
+Queen Anne's County
+69
+41
+59.42029
+14665
+7978
+0.47050801
+0.51391326
+151
+2019
+St. Mary's County
+186
+90
+48.38710
+14665
+7978
+1.26832595
+1.12810228
+152
+2019
+Talbot County
+39
+26
+66.66667
+14665
+7978
+0.26593931
+0.32589621
+153
+2019
+Washington County
+131
+83
+63.35878
+14665
+7978
+0.89328333
+1.04036099
+154
+2019
+Wicomico County
+155
+79
+50.96774
+14665
+7978
+1.05693829
+0.99022311
+155
+2019
+Worcester County
+96
+62
+64.58333
+14665
+7978
+0.65461984
+0.77713713
+156
+2020
+Allegany County
+14
+10
+71.42857
+15363
+8487
+0.09112803
+0.11782727
+157
+2020
+Anne Arundel County
+1207
+603
+49.95857
+15363
+8487
+7.85653844
+7.10498409
+158
+2020
+Baltimore City
+548
+335
+61.13139
+15363
+8487
+3.56701165
+3.94721339
+159
+2020
+Baltimore County
+1874
+1084
+57.84418
+15363
+8487
+12.19813838
+12.77247555
+160
+2020
+Calvert County
+182
+85
+46.70330
+15363
+8487
+1.18466445
+1.00153175
+161
+2020
+Caroline County
+21
+11
+52.38095
+15363
+8487
+0.13669205
+0.12960999
+162
+2020
+Carroll County
+339
+189
+55.75221
+15363
+8487
+2.20660027
+2.22693531
+163
+2020
+Cecil County
+98
+67
+68.36735
+15363
+8487
+0.63789624
+0.78944268
+164
+2020
+Charles County
+219
+115
+52.51142
+15363
+8487
+1.42550283
+1.35501355
+165
+2020
+Frederick County
+693
+411
+59.30736
+15363
+8487
+4.51083773
+4.84270060
+166
+2020
+Harford County
+426
+250
+58.68545
+15363
+8487
+2.77289592
+2.94568163
+167
+2020
+Howard County
+1968
+1008
+51.21951
+15363
+8487
+12.80999805
+11.87698834
+168
+2020
+Kent County
+18
+10
+55.55556
+15363
+8487
+0.11716462
+0.11782727
+169
+2020
+Maryland Unknown
+58
+33
+56.89655
+15363
+8487
+0.37753043
+0.38882998
+170
+2020
+Montgomery County
+5669
+3278
+57.82325
+15363
+8487
+36.90034498
+38.62377754
+171
+2020
+Prince George's County
+1354
+647
+47.78434
+15363
+8487
+8.81338280
+7.62342406
+172
+2020
+Queen Anne's County
+104
+53
+50.96154
+15363
+8487
+0.67695112
+0.62448451
+173
+2020
+St. Mary's County
+154
+79
+51.29870
+15363
+8487
+1.00240838
+0.93083540
+174
+2020
+Talbot County
+50
+22
+44.00000
+15363
+8487
+0.32545727
+0.25921998
+175
+2020
+Washington County
+124
+73
+58.87097
+15363
+8487
+0.80713402
+0.86013904
+176
+2020
+Wicomico County
+168
+75
+44.64286
+15363
+8487
+1.09353642
+0.88370449
+177
+2020
+Worcester County
+75
+49
+65.33333
+15363
+8487
+0.48818590
+0.57735360
+178
+2021
+Allegany County
+14
+10
+71.42857
+19568
+11958
+0.07154538
+0.08362602
+179
+2021
+Anne Arundel County
+1617
+862
+53.30860
+19568
+11958
+8.26349141
+7.20856330
+180
+2021
+Baltimore City
+902
+544
+60.31042
+19568
+11958
+4.60956664
+4.54925573
+181
+2021
+Baltimore County
+2410
+1420
+58.92116
+19568
+11958
+12.31602617
+11.87489547
+182
+2021
+Calvert County
+226
+129
+57.07965
+19568
+11958
+1.15494685
+1.07877572
+183
+2021
+Caroline County
+35
+20
+57.14286
+19568
+11958
+0.17886345
+0.16725205
+184
+2021
+Carroll County
+447
+280
+62.63982
+19568
+11958
+2.28434178
+2.34152868
+185
+2021
+Cecil County
+137
+99
+72.26277
+19568
+11958
+0.70012265
+0.82789764
+186
+2021
+Charles County
+378
+187
+49.47090
+19568
+11958
+1.93172527
+1.56380666
+187
+2021
+Dorchester County
+35
+21
+60.00000
+19568
+11958
+0.17886345
+0.17561465
+188
+2021
+Frederick County
+859
+583
+67.86962
+19568
+11958
+4.38982011
+4.87539722
+189
+2021
+Harford County
+536
+306
+57.08955
+19568
+11958
+2.73916599
+2.55895635
+190
+2021
+Howard County
+2345
+1457
+62.13220
+19568
+11958
+11.98385119
+12.18431176
+191
+2021
+Kent County
+13
+10
+76.92308
+19568
+11958
+0.06643500
+0.08362602
+192
+2021
+Maryland Unknown
+21
+11
+52.38095
+19568
+11958
+0.10731807
+0.09198863
+193
+2021
+Montgomery County
+6758
+4440
+65.69991
+19568
+11958
+34.53597711
+37.12995484
+194
+2021
+Prince George's County
+1948
+1061
+54.46612
+19568
+11958
+9.95502862
+8.87272119
+195
+2021
+Queen Anne's County
+78
+49
+62.82051
+19568
+11958
+0.39860998
+0.40976752
+196
+2021
+St. Mary's County
+196
+99
+50.51020
+19568
+11958
+1.00163532
+0.82789764
+197
+2021
+Talbot County
+59
+28
+47.45763
+19568
+11958
+0.30151267
+0.23415287
+198
+2021
+Washington County
+187
+127
+67.91444
+19568
+11958
+0.95564186
+1.06205051
+199
+2021
+Wicomico County
+278
+165
+59.35252
+19568
+11958
+1.42068684
+1.37982940
+200
+2021
+Worcester County
+89
+50
+56.17978
+19568
+11958
+0.45482420
+0.41813012
+201
+2022
+Allegany County
+24
+20
+83.33333
+20263
+11818
+0.11844248
+0.16923337
+202
+2022
+Anne Arundel County
+1597
+779
+48.77896
+20263
+11818
+7.88136011
+6.59163987
+203
+2022
+Baltimore City
+1005
+639
+63.58209
+20263
+11818
+4.95977891
+5.40700626
+204
+2022
+Baltimore County
+2499
+1396
+55.86234
+20263
+11818
+12.33282337
+11.81248942
+205
+2022
+Calvert County
+239
+125
+52.30126
+20263
+11818
+1.17948971
+1.05770858
+206
+2022
+Caroline County
+50
+27
+54.00000
+20263
+11818
+0.24675517
+0.22846505
+207
+2022
+Carroll County
+417
+219
+52.51799
+20263
+11818
+2.05793811
+1.85310543
+208
+2022
+Cecil County
+118
+73
+61.86441
+20263
+11818
+0.58234220
+0.61770181
+209
+2022
+Charles County
+352
+195
+55.39773
+20263
+11818
+1.73715639
+1.65002539
+210
+2022
+Dorchester County
+36
+24
+66.66667
+20263
+11818
+0.17766372
+0.20308005
+211
+2022
+Frederick County
+904
+544
+60.17699
+20263
+11818
+4.46133346
+4.60314774
+212
+2022
+Garrett County
+13
+10
+76.92308
+20263
+11818
+0.06415634
+0.08461669
+213
+2022
+Harford County
+607
+344
+56.67216
+20263
+11818
+2.99560776
+2.91081401
+214
+2022
+Howard County
+2459
+1472
+59.86173
+20263
+11818
+12.13541924
+12.45557624
+215
+2022
+Kent County
+19
+11
+57.89474
+20263
+11818
+0.09376696
+0.09307836
+216
+2022
+Maryland Unknown
+15
+10
+66.66667
+20263
+11818
+0.07402655
+0.08461669
+217
+2022
+Montgomery County
+6999
+4459
+63.70910
+20263
+11818
+34.54078863
+37.73058047
+218
+2022
+Prince George's County
+2029
+1001
+49.33465
+20263
+11818
+10.01332478
+8.47013031
+219
+2022
+Queen Anne's County
+102
+54
+52.94118
+20263
+11818
+0.50338055
+0.45693011
+220
+2022
+St. Mary's County
+186
+85
+45.69892
+20263
+11818
+0.91792923
+0.71924183
+221
+2022
+Talbot County
+86
+59
+68.60465
+20263
+11818
+0.42441889
+0.49923845
+222
+2022
+Washington County
+167
+95
+56.88623
+20263
+11818
+0.82416227
+0.80385852
+223
+2022
+Wicomico County
+264
+148
+56.06061
+20263
+11818
+1.30286730
+1.25232696
+224
+2022
+Worcester County
+76
+29
+38.15789
+20263
+11818
+0.37506786
+0.24538839
+
+
+
+Response:
+It looks like you've done a great job of preparing your data and performing some initial analyses. To answer the question of whether the University of Maryland's efforts to broaden recruitment have been successful, you can consider several statistical tests and analyses. Here are some suggestions:
+
+### **1. Comparative Analysis of Admissions Rates**
+- **T-tests or ANOVA**: You can perform a **t-test** (if comparing two groups) or **ANOVA** (if comparing more than two groups) to assess whether there are statistically significant differences in admissions rates before and after 2020. This will help you determine if there has been a significant change in the admissions rates as a result of recruitment efforts.
+
+### **2. Trend Analysis**
+- **Time Series Analysis**: Conduct a time series analysis to observe trends in admissions rates over the years. This can help you visualize how recruitment efforts may have impacted admissions over time.
+
+### **3. Correlation Analysis**
+- **Correlation Coefficient**: Calculate correlation coefficients (e.g., Pearson or Spearman) between the number of applicants and the number of admissions for each county. This will help you understand the relationship between the number of applicants and the success of admissions.
+
+### **4. Changes in Composition**
+- **Chi-Square Tests**: If you have categorical data (e.g., counties), you can use a **Chi-Square test** to see if the distribution of admitted students across counties has changed significantly over time.
+
+### **5. Regression Analysis**
+- **Multiple Regression**: You can use multiple regression analysis to examine the impact of various factors (e.g., county, year, number of applicants) on the admissions rates. This will help you understand the predictors of admissions success.
+
+### **6. Visualizations**
+- **Graphs and Plots**: Create visualizations such as line graphs to show trends in admissions rates over time, bar charts to compare admissions rates by county, and histograms for the distribution of admissions rates. These visual aids can help in interpreting the data and presenting your findings.
+
+### **7. Summary Statistics**
+- **Descriptive Statistics**: Continue to summarize your data with mean, median, standard deviation, and ranges for admissions rates before and after 2020. This will provide context to your analysis.
+
+### **8. Evaluate Changes in County Representation**
+- **Proportion Analysis**: Analyze the proportion of admitted students from each county before and after 2020. This can help assess whether recruitment efforts have successfully broadened the student base.
+
+### **Conclusion**
+By conducting these analyses, you will be able to provide a comprehensive evaluation of the effectiveness of the University of Maryland's recruitment efforts. Make sure to interpret the results in the context of your findings and consider potential confounding factors that may influence the results.
+
+If you have specific statistical tests in mind that you would like help implementing in R or if you need further assistance with your analysis, feel free to ask!
+
+[05/18/2025 21:42:30 +00:00] Razak Diallo:
+when constructing my summarise() function how can I filter for before and after 2020
+
+Response:
+To filter your data for years before and after 2020 within the `summarise()` function in **dplyr**, you can use the `filter()` function inside your summarization pipeline. Below is an example of how to do this:
+
+### **Example Code for Summarising Before and After 2020**
+
+Assuming you have a dataset named `hsAdmissions` and you want to calculate the mean admissions rates for years before and after 2020, you can do the following:
+
+```r
+library(dplyr)
+
+# Assuming hsAdmissions is your dataset
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  school_id = c(210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000),
+  year = c("2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"),
+  applied = c(52, 44, 38, 40, 56, 51, 59, 52, 65, 67),
+  admitted = c(41, 33, 22, 25, 37, 35, 37, 38, 44, 34),
+  acceptance_rate = c(78.8, 75, 57.9, 62.5, 66.1, 68.6, 62.7, 73.1, 67.7, 50.7),
+  county = c("Harford County", "Harford County", "Harford County", "Harford County", "Carroll County", 
+             "Carroll County", "Carroll County", "Carroll County", "Carroll County", "Carroll County")
+)
+
+# Simplify year to numeric
+hsAdmissions <- hsAdmissions %>%
+  mutate(year_numeric = as.numeric(sub("-\\d{2}$", "", year)))
+
+# Calculate mean admissions rate before and after 2020
+summary_admissions <- hsAdmissions %>%
+  group_by(county) %>%
+  summarise(
+    meanAdmissionsRate_before = mean(acceptance_rate[year_numeric < 2020], na.rm = TRUE),
+    meanAdmissionsRate_after = mean(acceptance_rate[year_numeric >= 2020], na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# View the summary
+print(summary_admissions)
+```
+
+### **Explanation of the Code**
+1. **Convert Year to Numeric**: The `mutate()` function creates a new numeric column `year_numeric` by converting the **`year`** column to numeric values (removing the end year).
+  
+2. **Group and Summarise**: The `group_by()` function groups the data by **`county`**. The `summarise()` function is used to calculate:
+   - **meanAdmissionsRate_before**: The mean acceptance rate for years **before 2020** using the condition `year_numeric < 2020`.
+   - **meanAdmissionsRate_after**: The mean acceptance rate for years **2020 and after** using the condition `year_numeric >= 2020`.
+  
+3. **Output**: The resulting dataframe `summary_admissions` contains the mean admissions rates for each county both before and after 2020.
+
+### **Usage**
+- Replace the sample dataset with your actual dataset by assigning it to the `hsAdmissions` variable.
+- Run the code in R or RStudio to see the results.
+
+If you have any further questions or need additional modifications to the code, feel free to ask!
+
+[05/18/2025 22:39:23 +00:00] Razak Diallo:
+I have this dataset where I want to perform a t-test to see if there has been a change in the representation of students by county after 2020 (perctAdmitted). Here is a sample of my dataframe:
+	
+year
+county
+applied
+admitted
+admissionsRate
+totalAppliedYear
+totalAdmittedYear
+perctApplied
+perctAdmitted
+1
+2013
+Allegany County
+27
+20
+74.07407
+12675
+7273
+0.21301775
+0.27498969
+2
+2013
+Anne Arundel County
+1067
+568
+53.23336
+12675
+7273
+8.41814596
+7.80970714
+3
+2013
+Baltimore City
+451
+260
+57.64967
+12675
+7273
+3.55818540
+3.57486594
+4
+2013
+Baltimore County
+1488
+899
+60.41667
+12675
+7273
+11.73964497
+12.36078647
+5
+2013
+Calvert County
+214
+127
+59.34579
+12675
+7273
+1.68836292
+1.74618452
+
+Response:
+To perform a **t-test** to see if there has been a change in the representation of students by county after 2020 using the **`perctAdmitted`** column, you will first need to filter your dataset into two groups: one for the years before and including 2020 and another for the years after 2020. Then, you can use the `t.test()` function in R to compare the means of these two groups.
+
+Here's how you can do this step by step:
+
+### **R Code Example**
+
+```r
+# Load necessary library
+library(dplyr)
+
+# Assuming your dataset is called 'hsAdmissions'
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  year = c("2013", "2013", "2013", "2013", "2013", "2021", "2021", "2021", "2021", "2021"),
+  county = c("Allegany County", "Anne Arundel County", "Baltimore City", "Baltimore County", "Calvert County",
+             "Allegany County", "Anne Arundel County", "Baltimore City", "Baltimore County", "Calvert County"),
+  applied = c(27, 1067, 451, 1488, 214, 30, 1000, 500, 1600, 200),
+  admitted = c(20, 568, 260, 899, 127, 15, 600, 300, 800, 100),
+  admissionsRate = c(74.07407, 53.23336, 57.64967, 60.41667, 59.34579, 50.00000, 60.00000, 60.00000, 50.00000, 50.00000),
+  totalAppliedYear = c(12675, 12675, 12675, 12675, 12675, 15000, 15000, 15000, 15000, 15000),
+  totalAdmittedYear = c(7273, 7273, 7273, 7273, 7273, 8000, 8000, 8000, 8000, 8000),
+  perctApplied = c(0.21301775, 8.41814596, 3.55818540, 11.73964497, 1.68836292, 0.20000000, 6.66666667, 3.33333333, 10.00000000, 1.33333333),
+  perctAdmitted = c(0.27498969, 7.80970714, 3.57486594, 12.36078647, 1.74618452, 0.10000000, 7.50000000, 4.00000000, 12.50000000, 0.50000000)
+)
+
+# View the original dataset
+print("Original Data:")
+print(hsAdmissions)
+
+# Convert year to numeric
+hsAdmissions <- hsAdmissions %>%
+  mutate(year_numeric = as.numeric(year))
+
+# Split the data into two groups: before/including 2020 and after 2020
+before_2020 <- hsAdmissions %>% filter(year_numeric <= 2020)
+after_2020 <- hsAdmissions %>% filter(year_numeric > 2020)
+
+# Perform a t-test on the perctAdmitted
+t_test_result <- t.test(before_2020$perctAdmitted, after_2020$perctAdmitted, var.equal = TRUE)
+
+# View the t-test results
+print("T-Test Results:")
+print(t_test_result)
+```
+
+### **Explanation of the Code**
+1. **Load Library**: The **dplyr** library is loaded for data manipulation.
+2. **Sample Dataset**: A sample dataset named `hsAdmissions` is created for demonstration purposes. Replace this with your actual dataset.
+3. **Convert Year to Numeric**: The `mutate()` function creates a new numeric column `year_numeric` for filtering.
+4. **Filter Data**: The dataset is split into two groups:
+   - **`before_2020`**: Contains all entries for years **before and including 2020**.
+   - **`after_2020`**: Contains all entries for years **after 2020**.
+5. **Perform T-Test**: The `t.test()` function is used to compare the means of the **`perctAdmitted`** column for the two groups. The `var.equal = TRUE` argument assumes equal variances; you can set it to `FALSE` if you want to perform Welch's t-test which does not assume equal variances.
+6. **Output**: The results of the t-test are printed
+ 
+--The response length has exceeded the model's configured limit. If you wish, I can complete responses for specific sections with your next prompt.
+
+[05/18/2025 22:54:18 +00:00] Razak Diallo:
+This is what I got. What do you think
+
+data:  after_2020$perctAdmitted
+t = -0.22771, df = 46, p-value = 0.5896
+alternative hypothesis: true mean is greater than 4.519774
+95 percent confidence interval:
+ 2.30575     Inf
+sample estimates:
+mean of x 
+ 4.255319
+
+Response:
+Your t-test results indicate the following:
+
+### **Interpretation of the T-Test Results**
+
+1. **T-Statistic**: 
+   - The t-value of **-0.22771** suggests that the mean percentage of admitted students from the **after_2020** group is slightly lower than the mean from the **before_2020** group, but this difference is very small.
+
+2. **Degrees of Freedom (df)**:
+   - The degrees of freedom (46) indicate the number of independent values in your analysis. This is based on the sizes of the two groups you compared.
+
+3. **P-Value**:
+   - The p-value of **0.5896** is significantly higher than common significance levels (e.g., 0.05 or 0.01). This indicates that there is **no statistically significant difference** in the representation of students by county (as measured by **perctAdmitted**) after 2020 compared to before 2020. In other words, you fail to reject the null hypothesis.
+
+4. **Alternative Hypothesis**:
+   - The alternative hypothesis states that the true mean of the **after_2020** group is greater than the mean of the **before_2020** group. Since the p-value is high, you do not have enough evidence to support this claim.
+
+5. **Confidence Interval**:
+   - The 95% confidence interval for the mean of the **after_2020** group is from **2.30575** to **Inf**. This suggests that while the lower bound of the mean representation is above 2.30575, there is no upper bound, indicating that the mean could be quite high, but it does not provide evidence of a significant change.
+
+6. **Sample Estimate**:
+   - The mean of the **after_2020** group is approximately **4.255319**, which indicates the average percentage of admitted students from this group.
+
+### **Conclusion**
+Based on the results of your t-test, there is no statistically significant change in the representation of students by county (as measured by **perctAdmitted**) after 2020 compared to before 2020. This suggests that the University of Maryland's efforts to broaden recruitment may not have had a measurable impact on the representation of students from different counties in the admitted classes.
+
+### **Next Steps**
+1. **Further Analysis**: You may want to explore other factors that could affect admissions, such as the number of applicants or changes in recruitment strategies.
+2. **Visualizations**: Consider creating visualizations (e.g., boxplots or bar charts) to help illustrate the differences in representation over time.
+3. **Additional Tests**: If you have more detailed data, consider conducting additional analyses, such as regression analysis, to identify other predictors of admissions success.
+
+If you have any further questions or need assistance with additional analyses, feel free to ask!
+
+[05/18/2025 22:58:34 +00:00] Razak Diallo:
+The t-test of the entire population, without filtering by county, shows that recruitment efforts did not dramatically shift the overall distribution of in-state students by county. You could argue that a homogeneous group of students was not the goal of the University but rather increasing recruitment in certain counties. How can I see if their efforts since 2020 have broadned admissions on a county by county basis. Would I run a t-test for each county instead and see which ones disprove or approve the hyptohesis?
+
+Response:
+Yes, running separate t-tests for each county is a valid approach to assess whether the University of Maryland's recruitment efforts since 2020 have broadened admissions on a county-by-county basis. Here’s how you can approach this analysis:
+
+### **Steps to Analyze County-by-County Changes**
+
+1. **Filter the Data**: Create two subsets of your data, one for years before and including 2020 and another for years after 2020.
+
+2. **Group by County**: Use a loop or a function to iterate through each unique county in your dataset.
+
+3. **Run T-Tests**: For each county, run a t-test comparing the **perctAdmitted** values before and after 2020.
+
+4. **Store Results**: Collect the results (t-statistic, p-value, confidence intervals, etc.) for each county in a summary table.
+
+5. **Interpret Results**: Analyze the results to determine which counties show significant changes in admissions representation.
+
+### **R Code Example**
+
+Here’s a sample code snippet to perform these steps:
+
+```r
+library(dplyr)
+
+# Assuming hsAdmissions is your dataset
+# Create a sample dataset for demonstration
+hsAdmissions <- data.frame(
+  year = c("2013", "2013", "2021", "2021", "2021", "2021"),
+  county = c("Allegany County", "Anne Arundel County", "Allegany County", "Anne Arundel County", "Baltimore County", "Calvert County"),
+  perctAdmitted = c(27.5, 50.0, 30.0, 55.0, 40.0, 35.0)
+)
+
+# Convert year to numeric
+hsAdmissions <- hsAdmissions %>%
+  mutate(year_numeric = as.numeric(year))
+
+# Split the data into two groups: before/including 2020 and after 2020
+before_2020 <- hsAdmissions %>% filter(year_numeric <= 2020)
+after_2020 <- hsAdmissions %>% filter(year_numeric > 2020)
+
+# Create a results dataframe
+results <- data.frame(county = character(),
+                      t_statistic = numeric(),
+                      p_value = numeric(),
+                      mean_before = numeric(),
+                      mean_after = numeric(),
+                      stringsAsFactors = FALSE)
+
+# Get unique counties
+unique_counties <- unique(hsAdmissions$county)
+
+# Loop through each county and perform t-test
+for (county in unique_counties) {
+  before_data <- before_2020 %>% filter(county == county)
+  after_data <- after_2020 %>% filter(county == county)
+  
+  # Check if there are enough data points to perform the t-test
+  if (nrow(before_data) > 1 && nrow(after_data) > 1) {
+    t_test_result <- t.test(before_data$perctAdmitted, after_data$perctAdmitted, var.equal = TRUE)
+    
+    # Store the results
+    results <- rbind(results, data.frame(
+      county = county,
+      t_statistic = t_test_result$statistic,
+      p_value = t_test_result$p.value,
+      mean_before = mean(before_data$perctAdmitted, na.rm = TRUE),
+      mean_after = mean(after_data$perctAdmitted, na.rm = TRUE)
+    ))
+  }
+}
+
+# View the results
+print("T-Test Results by County:")
+print(results)
+```
+
+### **Explanation of the Code**
+1. **Data Preparation**: The dataset is filtered into two groups based on the year.
+2. **Results DataFrame**: A results dataframe is created to store the t-test results for each county.
+3. **Loop Through Counties**: A loop iterates through each unique county, performing a t-test for the **perctAdmitted** values before and after 2020.
+4. **Check Data Points**: Ensure there are enough data points in each group to perform the t-test.
+5. **Store Results**: The t-statistic, p-value, and means for both groups are stored in the results dataframe.
+6. **Output**: The results are printed for review.
+
+### **Next Steps**
+- **Interpret the Results**: Analyze the p-values for each county to determine if there are significant changes in admissions representation.
+- **Visualize**: Consider creating visualizations (e.g., bar plots) to illustrate the changes in admissions representation by county.
+- **Report Findings**: Summarize your findings, highlighting counties where recruitment efforts have been successful or unsuccessful.
+
+This approach will provide a comprehensive view of how recruitment efforts have affected admissions on a county-by-county basis. If you have any further questions or need additional assistance, feel free to ask!
+
+[05/18/2025 23:12:36 +00:00] Razak Diallo:
+How would you interpret this:
+county
+t_statistic
+p_value
+mean_before
+mean_after
+t1
+Prince George's County
+5.9705159
+0.05282333
+7.4695881
+8.67142575
+t17
+Charles County
+5.1209841
+0.06138548
+1.3861537
+1.60691602
+t18
+Wicomico County
+4.1848610
+0.07466217
+1.0492882
+1.31607818
+t2
+Montgomery County
+3.7567801
+0.08280928
+36.3020585
+37.43026766
+t5
+Baltimore City
+2.0333457
+0.14548874
+4.1060793
+4.97813100
+t13
+Dorchester County
+0.8409300
+0.27743618
+0.1777991
+0.18934735
+t16
+Talbot County
+0.7636272
+0.29240923
+0.2654824
+0.36669566
+t11
+Frederick County
+0.7308732
+0.29909962
+4.6397826
+4.73927248
+t15
+Caroline County
+0.2089166
+0.43444269
+0.1914643
+0.19785855
+t9
+Washington County
+0.1068445
+0.46611887
+0.9191613
+0.93295452
+t20
+Queen Anne's County
+-0.6319920
+0.67940312
+0.4482520
+0.43334881
+t
+Harford County
+-0.6637843
+0.68653101
+2.8516640
+2.73488518
+t7
+Carroll County
+-0.7484925
+0.70452543
+2.2801076
+2.09731706
+t4
+Anne Arundel County
+-0.7547007
+0.70578823
+7.1328979
+6.90010159
+t10
+Cecil County
+-1.2402426
+0.78400545
+0.8531466
+0.72279973
+t3
+Allegany County
+-1.2552048
+0.78586818
+0.1801571
+0.12642970
+t22
+Worcester County
+-1.9097059
+0.84645339
+0.4967022
+0.33175926
+t6
+Howard County
+-2.8700932
+0.89328113
+12.7092212
+12.31994400
+t14
+St. Mary's County
+-4.7266716
+0.93363526
+1.0303599
+0.77356974
+t19
+Kent County
+-10.3523173
+0.96934741
+0.1372790
+0.08835219
+t12
+Calvert County
+-25.6823896
+0.98761217
+1.3387693
+1.06824215
+t8
+Baltimore County
+-27.2867015
+0.98833983
+12.6951200
+11.84369245
+t21
+Maryland Unknown
+-380.7335231
+0.99916396
+1.4916751
+0.08830266
+Showing 1 to 23 of 23 entries, 5 total columns
+
+Response:
+The output you provided summarizes the results of the t-tests conducted for each county, comparing the percentage of admitted students before and after 2020. Here's how you can interpret the results:
+
+### **Interpretation of the Results**
+
+1. **T-Statistic**:
+   - The t-statistic indicates the size of the difference relative to the variation in your sample data. A higher absolute value suggests a larger difference between the two means being compared. In your results:
+     - **Positive t-statistics** (e.g., for Prince George's County, Charles County, Wicomico County, and Montgomery County) indicate that the mean percentage of admitted students after 2020 is greater than before 2020.
+     - **Negative t-statistics** (e.g., for counties like Kent County, Calvert County, and Baltimore County) indicate that the mean percentage of admitted students after 2020 is lower than before 2020.
+
+2. **P-Value**:
+   - The p-value helps determine the statistical significance of your results. A common threshold for significance is **0.05**:
+     - **Prince George's County (p = 0.0528)**, **Charles County (p = 0.0614)**, **Wicomico County (p = 0.0747)**, and **Montgomery County (p = 0.0828)** have p-values close to the significance threshold, suggesting that there may be a trend toward increased representation after 2020, but they do not meet the conventional threshold for statistical significance.
+     - **Counties with p-values greater than 0.05** (e.g., Dorchester County, Talbot County, Frederick County, and others) indicate that there is no statistically significant change in the percentage of admitted students after 2020 compared to before.
+
+3. **Mean Before and After**:
+   - The **mean_before** and **mean_after** columns show the average percentage of admitted students for each county before and after 2020.
+     - For example, **Prince George's County** had a mean of **7.47%** before and **8.67%** after 2020, suggesting a slight increase in representation.
+     - In contrast, **Kent County** had a mean of **0.14%** before and **0.09%** after 2020, indicating a decrease in representation.
+
+### **Overall Conclusions**
+- **Counties with Significant Trends**: While some counties (e.g., Prince George's, Charles, Wicomico, and Montgomery) show positive trends in terms of increased representation, none of these changes are statistically significant at the 0.05 level. This suggests that while there may be some improvement, the evidence is not strong enough to conclude that recruitment efforts have had a meaningful impact.
+  
+- **Counties with Decreased Representation**: Several counties (e.g., Kent, Calvert, Baltimore) show a decrease in the percentage of admitted students after 2020, but the changes are not statistically significant.
+
+- **Further Analysis**: Consider conducting additional analyses or using different methods (like regression analysis) to explore factors influencing admissions, as well as potential confounding variables that may affect the results.
+
+### **Next Steps**
+- **Visualizations**: Create visualizations (e.g., bar plots or line graphs) to illustrate the changes in representation for each county over the years.
+- **Contextual Analysis**: Discuss potential external factors that may have influenced admissions trends, such as changes in recruitment strategies or demographic shifts.
+
+If you have any further questions or need assistance with additional analyses, feel free to ask!
+

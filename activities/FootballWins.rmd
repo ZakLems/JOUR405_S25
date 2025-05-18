@@ -26,7 +26,7 @@ teams <- read_csv("https://raw.githubusercontent.com/dwillis/jour405_files/main/
 Next, we construct a linear model to analyze how different factors like `Yards Gained`, `Takeaways`, and `Points Scored` influence the number of wins. This model helps us quantify the relationships and assess which factors are significant predictors of success.
 
 ```{r}
-model <- lm(Wins ~ `Yards Gained` + Giveaways + `Points Scored`, data = teams)
+model <- lm(Wins ~ `Yards Gained` + Takeaways + `Points Scored`, data = teams)
 summary(model)
 ```
 

@@ -1,0 +1,22 @@
+---
+title: "final_project"
+output: html_document
+---
+
+#HS Admissions Data
+```{r}
+library(tidyverse)
+hsAdmissions <- read_csv("admissions.csv")
+```
+
+The data shows the amount of applications and admissions to the University of Maryland from different Maryland high schools going back to 2013.
+
+Each high school has its county, public/private classification, and more location data. For each year it lists the number of students that applied, got accepted, and the acceptance rate based on those two numbers. Amounts less than 10 are all represented as ">10."
+
+For my analysis, the most important columns will be the amount admitted, applied and the acceptance rate. I would also have to group this data by county to answer my main question but it could also be interesting to see where the applications and admissions are coming from within a county. 
+
+It would be helpful to have the population of the school to get the percentage of students that are applying to UMD. This is a bit more unrealistic but having the percentage of students even applying to college would be useful. 
+
+Questions:
+- To see if there is a difference between pre-2020 and post-2020 data, would I use a t-test?
+- Vauge use of data in the previous question becasue I'm debating whether or not I should be looking at all three of the data types provided. Raw admissions numbers and the acceptance rate shows changes in where the university is letting people in from, raw application numbers shows if there are changes in the interest of people from different areas to go here. Both of those seem pretty useful (though lacking the context that school population numbers would help with). 

@@ -3,20 +3,227 @@ title: "final_project"
 output: html_document
 ---
 
-#HS Admissions Data
+#Load the tidyverse
 ```{r}
 library(tidyverse)
-hsAdmissions <- read_csv("admissions.csv")
 ```
 
-The data shows the amount of applications and admissions to the University of Maryland from different Maryland high schools going back to 2013.
+#load admissions data
+```{r}
+hsAdmissions <- read_csv("admissions.csv")
+```
+#cleaning data (N/A values and <[number])
+```{r}
+#simplify year
+hsAdmissions <- hsAdmissions |> mutate(year = sub("-\\d{2}$", "", year))
 
-Each high school has its county, public/private classification, and more location data. For each year it lists the number of students that applied, got accepted, and the acceptance rate based on those two numbers. Amounts less than 10 are all represented as ">10."
+#seperate rows with NA values and remove them from the original database
+naRows <- hsAdmissions[is.na(hsAdmissions$applied) | is.na(hsAdmissions$admitted) | is.na(hsAdmissions$acceptance_rate), ]
+hsAdmissions <- hsAdmissions[!is.na(hsAdmissions$applied) | !is.na(hsAdmissions$admitted) | !is.na(hsAdmissions$acceptance_rate), ]
 
-For my analysis, the most important columns will be the amount admitted, applied and the acceptance rate. I would also have to group this data by county to answer my main question but it could also be interesting to see where the applications and admissions are coming from within a county. 
+#rename "Maryland Unknown" entries
+hsAdmissions <- hsAdmissions |> mutate(county = ifelse(is.na(county), "Maryland Unknown", county))
 
-It would be helpful to have the population of the school to get the percentage of students that are applying to UMD. This is a bit more unrealistic but having the percentage of students even applying to college would be useful. 
+# Function to convert "<number" to "number - 0.01"
+convert_less_than <- function(value) {
+  if (grepl("^<\\d+$", value)) {  # Check if the string starts with "<" followed by digits
+    number <- as.numeric(sub("^<", "", value))  # Remove "<" and convert to numeric
+    return(number - 0.01)  # Return the number - 0.01
+  } else {
+    return(as.numeric(value))  # If not, return the value as numeric
+  }
+}
 
-Questions:
-- To see if there is a difference between pre-2020 and post-2020 data, would I use a t-test?
-- Vauge use of data in the previous question becasue I'm debating whether or not I should be looking at all three of the data types provided. Raw admissions numbers and the accpetance rate shows changes in where the university is letting people in from, raw application numbers shows if there are changes in the interest of people from different areas to go here. Both of those seem pretty useful (though lacking the context that school population numbers would help with). 
+# Remove "<[number]" values from dataset by converting them to the
+hsAdmissions$applied <- sapply(hsAdmissions$applied, convert_less_than)
+hsAdmissions$admitted <- sapply(hsAdmissions$admitted, convert_less_than)
+hsAdmissions$acceptance_rate <- sapply(hsAdmissions$acceptance_rate, convert_less_than)
+```
+If I had kept the N/A values I wouldn't have been able to operate on the data set. I thought about turning them to 0s but there could be numerous reasons as to why the data is unavailable such as it simply not being tracked. I also changed the <[number] values to the highest they could possibly be without crossing the threshold. This gives the most charitable data to the university's argument that since 2020 it has "broaden our student recruitment efforts across Maryland counties and cities." My conclusion will consider this decision.
+
+#Determining the number of N/A years per county
+```{r}
+naByCounty <- naRows %>%
+  group_by(county) %>%
+  summarise(na_count = n())
+
+```
+It's interesting how the NA values are overwhelmingly in Prince George's County. If the N/A were to represent schools where 0 applicants applied to the University of Maryland, it shows a strong lack of interest in the institution.
+
+#Admissions rate of each county per year. Percentage of total applications and total admitted by county per year
+```{r}
+# Calculate the percentage of admitted students per county for each year
+countyAdmissionsRate <- hsAdmissions %>%
+  group_by(year, county) %>%
+  summarise(
+    applied = ceiling(sum(applied, na.rm = TRUE)),
+    admitted = ceiling(sum(admitted, na.rm = TRUE)),
+    admissionsRate = (admitted/applied)*100,
+    .groups = 'drop'
+    ) |> 
+  group_by(year) |> 
+  mutate(totalAppliedYear = sum(applied), totalAdmittedYear = sum(admitted)) %>%
+  mutate(perctApplied = (applied / totalAppliedYear)*100, perctAdmitted = (admitted / totalAdmittedYear) * 100)
+```
+
+There are a few interesting things here. On the admissions rate front you would expect I applicant counties to fall closer to the mean at just under 60% but a high volume of years for Anne Arundel County and Prince George's County (both which saw application rates in the thousands) are as low as 39%.
+```{r}
+#summary statistics
+arSummary <- countyAdmissionsRate |> 
+  group_by(county) |>
+  summarize(
+    meanAdmissions = mean(admissionsRate),
+    medianAdmissions = median(admissionsRate),
+    sdAdmissions = sd(admissionsRate),
+    minAdmissions = min(admissionsRate),
+    maxAdmissions = max(admissionsRate)
+  )
+
+print(arSummary)
+
+countyAdmissionsRate |> 
+  ggplot() + 
+  geom_histogram(aes(x = admissionsRate), binwidth = 6) +
+  geom_vline(aes(xintercept = mean(admissionsRate)), color = "red", linetype = "dashed", size = 1) + 
+  geom_vline(aes(xintercept = mean(admissionsRate) - sd(admissionsRate)), color="blue", linetype = "dashed", size =1) +
+  geom_vline(aes(xintercept = mean(admissionsRate) + sd(admissionsRate)), color="blue", linetype = "dashed", size =1)
+```
+The shifts in the proportion of applicants to admitted also raises a few questions. The majority of county/years see increases or negligible changes in their share after admission, except for Anne Arundel County and Prince George's County who average large decreases in their share of the pool. Montgomery County exist on the opposite, with an average increase close to 2 percentage points after admission.
+```{r}
+changesInPercentage <- countyAdmissionsRate |> 
+  group_by(county) |> 
+  summarize(
+    change = mean(perctAdmitted - perctApplied)
+  )
+```
+
+
+#narrowing in on before and after 2020
+```{r}
+prePost2020 <- countyAdmissionsRate |> 
+  group_by(county) |> 
+  summarize(
+    meanAdmissionsRatePre = mean(admissionsRate[year<=2020]),
+    meanAdmissionsRatePost = mean(admissionsRate[year>2020]),
+    meanApplicationPerctPre = mean(perctApplied[year<=2020]),
+    meanApplicationPerctPost = mean(perctApplied[year>2020]),
+    meanAdmittedPerctPre = mean(perctAdmitted[year<=2020]),
+    meanAdmittedPerctPost = mean(perctAdmitted[year>2020]),
+    meanChangePre = mean(perctAdmitted[year<=2020] - perctApplied[year<=2020]),
+    meanChangePost = mean(perctAdmitted[year>2020] - perctApplied[year>2020])
+  )
+```
+The data here shows increases in admissions rate across the board. Anne Arundel county shows a decrease in their share of admitted students after the 2020 while Prince George's County managed to increase. 
+
+#T-Test
+Testing if claim that across the board admissions broadened is true by looking at the percentage make up of the admitted class.
+
+- H₀: μ ≤ 4.519774 (Recruiting efforts have not broadened population)
+- H₁: μ > 4.519774 (Recruiting efforts have broadened population)
+```{r}
+before_2020 <- countyAdmissionsRate %>% filter(year <= 2020)
+after_2020 <- countyAdmissionsRate %>% filter(year > 2020)
+
+t_test_result <- t.test(after_2020$perctAdmitted, mu=mean(before_2020$perctAdmitted), alternative = "greater")
+
+print("T-Test Results:")
+print(t_test_result)
+
+# Extract the p-value
+p_value <- t_test_result$p.value
+
+# Calculate the 95% confidence interval
+ci <- t.test(after_2020$perctAdmitted)$conf.int
+
+# Format and display the confidence interval in a readable way
+ci_formatted <- tibble(
+  `Lower bound` = ci[1],
+  `Upper bound` = ci[2],
+  `Confidence level` = "95%"
+)
+
+# Display as a nice table
+ci_formatted
+
+# Set our significance level
+alpha <- 0.05
+
+# Compare and make a decision
+if(p_value < alpha) {
+  conclusion <- "The data provides statistical evidence supporting the claim that the recruitment efforts have broadned the in-state population."
+} else {
+  conclusion <- "The data does not provide strong statistical evidence that the recruitment efforts have broadned the in-state population."
+}
+
+# Create a tibble to display the key statistics for your story
+story_stats <- tibble(
+  `Previous average` = mean(before_2020$perctAdmitted),
+  `New average` = mean(after_2020$perctAdmitted),
+  `Decrease` =  mean(after_2020$perctAdmitted) - mean(before_2020$perctAdmitted),
+  `Percent change` = paste0(round(((mean(after_2020$perctAdmitted) - mean(before_2020$perctAdmitted)) / mean(before_2020$perctAdmitted)) * 100, 1), "%"),
+  `p-value` = p_value,
+  `Statistically significant?` = if_else(p_value < alpha, "Yes", "No")
+)
+
+# Display the key statistics
+story_stats
+
+print(conclusion)
+```
+
+The t-test of the entire population, without filtering by county, shows that recruitment efforts did not dramatically shift the overall distribution of in-state students by county. You could argue that a homogeneous group of students was not the goal of the University but rather increasing recruitment in certain counties. 
+
+#Individual County T-Test
+```{r}
+# Create a results dataframe
+results <- data.frame(county = character(),
+                      t_statistic = numeric(),
+                      p_value = numeric(),
+                      mean_before = numeric(),
+                      mean_after = numeric(),
+                      stringsAsFactors = FALSE)
+
+# Get unique counties
+unique_counties <- unique(hsAdmissions$county)
+
+# Loop through each county and perform t-test
+for (c in unique_counties) {
+  before_data <- before_2020 %>% filter(c == county)
+  after_data <- after_2020 %>% filter(c == county)
+  
+  # Check if there are enough data points to perform the t-test
+  if (nrow(before_data) > 1 && nrow(after_data) > 1) {
+    t_itest_result <- t.test(after_data$perctAdmitted, mu=mean(before_data$perctAdmitted), alternative = "greater")
+    
+    # Store the results
+    results <- rbind(results, data.frame(
+      county = c,
+      t_statistic = t_itest_result$statistic,
+      p_value = t_itest_result$p.value,
+      mean_before = mean(before_data$perctAdmitted, na.rm = TRUE),
+      mean_after = mean(after_data$perctAdmitted, na.rm = TRUE)
+    ))
+  }
+}
+
+# View the results
+print("T-Test Results by County:")
+print(results)
+```
+
+Most of the counties had statistically insignificant results. Prince George's County is close to the 0.05 threshold and has a clear jump in its mean share of admitted students by 1 percentage point. Nonetheless because none of the counties meet the standard alpha value, the results are statistically significant enough to conclude that the recruitment efforts by the University have been effective.
+
+#Story Pitch
+The results show statistically insignificant change in share of total admitted students. Also considering how charitable the data was to the University (eliminating N/A and rounding up <[number]), the story could discuss what UMD's broadened recruitment approach has been and what other factors could be contributing to to it's insignificant change in the composition of the university. 
+
+A major problem with my analysis is my approach to cleaning up the data. Someone else could do it entirely differently, considering N/A and <[number] as 0 for example, and get super different results. Moreover there could be better determinants of recruitment than changes in percentage of admitted student population. Some counties are just bigger/smaller than others and it would be unrealistic for the demographics to change that dramatically. Also the data ends only two years after 2020 and some recruitment efforts may not fully trickle down until 2024 or 2025. 
+
+If I was to continue reporting on this story I would aim to get updated data from the university that groups all admissions by county (to avoid anonymizing for smaller populations). I would spend more time with the data, looking at z-scores to see if there were any outlier years for specific counties. I would also speak to the University and see what efforts they specifically made to broaden their recruitment. I think it would also be interesting to consider where a lot of transfer students from Community Colleges that graduated high school in the past 4 years are coming from.
+
+
+
+
+
+
+
+
